@@ -1,0 +1,142 @@
+/* js/i18n.js — Hindi / English strings */
+
+let lang = localStorage.getItem('av_lang') || 'hi';
+
+const L = {
+  hi: {
+    appName: 'अनुश्री वस्त्रालय', appSub: 'साड़ी · टेक्सटाइल्स · परंपरा',
+    home: 'घर', customers: 'ग्राहक', addSale: 'बिक्री', addPay: 'भुगतान',
+    totalDue: 'कुल बकाया', subDue: 'सभी ग्राहकों का',
+    custOwing: 'ग्राहक बकाया', collectedLabel: 'वसूल',
+    monthSale: 'इस महीने', allTime: 'कुल बिक्री',
+    topDebtors: '⚠ सबसे ज़्यादा बकाया', recentSales: 'हाल की बिक्री',
+    months: ['जन','फ़र','मार','अप्र','मई','जून','जुल','अग','सित','अक्त','नव','दिस'],
+    chartTitle: 'महीनेवार बिक्री', pieTitle: 'इस महीने का हिसाब',
+    collected: 'वसूल', owing: 'बकाया',
+    addCustTitle: 'नया ग्राहक जोड़ें',
+    custName: 'नाम', custPhone: 'फोन नंबर', addCustBtn: 'जोड़ें',
+    searchPH: 'नाम या फोन से खोजें...',
+    noCustomers: 'कोई ग्राहक नहीं।', noCustomersSub: 'ऊपर नाम और फोन डालकर जोड़ें।',
+    selCust: 'ग्राहक चुनें', selCustPH: 'नाम लिखें...',
+    amtLbl: 'राशि (₹)', descLbl: 'विवरण', descPH: 'जैसे: लाल बनारसी साड़ी',
+    photoLbl: 'फ़ोटो', takePhoto: '📷  फ़ोटो लें', saveSale: 'बिक्री दर्ज करें',
+    payCust: 'ग्राहक चुनें', payAmt: 'भुगतान राशि (₹)',
+    payNote: 'नोट', payNotePH: 'जैसे: कैश मिला', savePay: 'भुगतान दर्ज करें',
+    curBal: 'वर्तमान बकाया',
+    balance: 'बकाया राशि', allClear: '✓ सब चुकता',
+    call: 'कॉल', sale: 'बिक्री', payment: 'भुगतान',
+    noTxn: 'कोई लेन-देन नहीं।',
+    filterAll: 'सभी', filterSale: 'बिक्री', filterPay: 'भुगतान',
+    purchases: 'कुल खरीद', paid: 'कुल भुगतान', balLabel: 'बकाया',
+    editCustBtn: '✏️  ग्राहक सुधारें', delCustBtn: '🗑  हटाएँ',
+    saveEditBtn: 'सेव करें',
+    delCustQ: 'ग्राहक हटाएँ?', delTxnQ: 'एंट्री हटाएँ?',
+    confirmYes: 'हाँ, हटाएँ', cancel: 'रद्द',
+    editEntry: 'एंट्री सुधारें', editDate: 'तारीख',
+    changePhoto: '📷  फ़ोटो बदलें', saveEntryBtn: '✓ सुधार सेव करें',
+    collectFull: '✓ पूरा', savePay2: 'दर्ज',
+    waBtn: 'WhatsApp पर याद दिलाएँ',
+    waMsg: (name, amt, shop) => `नमस्ते ${name} जी,\n\nआपका बकाया भुगतान ₹${amt} है।\nकृपया जल्द भुगतान करें।\n\nधन्यवाद,\n${shop}`,
+    agingDays: d => `${d} दिन से बकाया`,
+    agingLastPay: d => `आखिरी भुगतान ${d} दिन पहले`,
+    noSales: 'अभी कोई बिक्री नहीं',
+    t_sale: '✓ बिक्री दर्ज', t_pay: '✓ भुगतान दर्ज',
+    t_custAdd: '✓ ग्राहक जोड़ा', t_custEdit: '✓ ग्राहक सुधरा',
+    t_txnEdit: '✓ एंट्री सुधरी', t_txnDel: '✓ एंट्री हटाई',
+    t_custDel: '✓ ग्राहक हटाया',
+    t_fillSale: 'ग्राहक और राशि भरें',
+    t_fillPay: 'ग्राहक और राशि भरें',
+    t_fillCust: 'नाम और फोन भरें',
+  },
+  en: {
+    appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
+    home: 'Home', customers: 'Customers', addSale: 'Sale', addPay: 'Payment',
+    totalDue: 'Total Outstanding', subDue: 'Across all customers',
+    custOwing: 'customers owing', collectedLabel: 'collected',
+    monthSale: 'This Month', allTime: 'All Time',
+    topDebtors: '⚠ Top Debtors', recentSales: 'Recent Sales',
+    months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    chartTitle: 'Monthly Sales', pieTitle: 'This Month Breakdown',
+    collected: 'Collected', owing: 'Owing',
+    addCustTitle: 'Add New Customer',
+    custName: 'Name', custPhone: 'Phone', addCustBtn: 'Add',
+    searchPH: 'Search by name or phone...',
+    noCustomers: 'No customers yet.', noCustomersSub: 'Add name and phone above.',
+    selCust: 'Select Customer', selCustPH: 'Type a name...',
+    amtLbl: 'Amount (₹)', descLbl: 'Description', descPH: 'e.g. Red Banarasi Saree',
+    photoLbl: 'Photo', takePhoto: '📷  Take Photo', saveSale: 'Add Sale',
+    payCust: 'Select Customer', payAmt: 'Payment Amount (₹)',
+    payNote: 'Note', payNotePH: 'e.g. Cash received', savePay: 'Record Payment',
+    curBal: 'Current Balance',
+    balance: 'Balance Due', allClear: '✓ All Clear',
+    call: 'Call', sale: 'Sale', payment: 'Payment',
+    noTxn: 'No transactions yet.',
+    filterAll: 'All', filterSale: 'Sales', filterPay: 'Payments',
+    purchases: 'Purchases', paid: 'Paid', balLabel: 'Balance',
+    editCustBtn: '✏️  Edit Customer', delCustBtn: '🗑  Delete',
+    saveEditBtn: 'Save',
+    delCustQ: 'Delete customer?', delTxnQ: 'Delete this entry?',
+    confirmYes: 'Yes, Delete', cancel: 'Cancel',
+    editEntry: 'Edit Entry', editDate: 'Date',
+    changePhoto: '📷  Change Photo', saveEntryBtn: '✓ Save Changes',
+    collectFull: '✓ Full', savePay2: 'Save',
+    waBtn: 'Send WhatsApp Reminder',
+    waMsg: (name, amt, shop) => `Namaste ${name} ji,\n\nYour outstanding balance is ₹${amt}.\nKindly make the payment at your earliest convenience.\n\nThank you,\n${shop}`,
+    agingDays: d => `Owing for ${d} days`,
+    agingLastPay: d => `Last payment ${d} days ago`,
+    noSales: 'No sales yet',
+    t_sale: '✓ Sale recorded', t_pay: '✓ Payment recorded',
+    t_custAdd: '✓ Customer added', t_custEdit: '✓ Customer updated',
+    t_txnEdit: '✓ Entry updated', t_txnDel: '✓ Entry deleted',
+    t_custDel: '✓ Customer deleted',
+    t_fillSale: 'Fill customer and amount',
+    t_fillPay: 'Fill customer and amount',
+    t_fillCust: 'Fill name and phone',
+  }
+};
+
+const t = k => L[lang][k] || k;
+
+function toggleLang() {
+  lang = lang === 'hi' ? 'en' : 'hi';
+  localStorage.setItem('av_lang', lang);
+  document.getElementById('lang-btn').textContent = lang === 'hi' ? 'EN' : 'HI';
+  document.querySelector('html').lang = lang === 'hi' ? 'hi' : 'en';
+  applyStaticLabels();
+  renderAll();
+}
+
+function applyStaticLabels() {
+  const s = L[lang];
+  document.getElementById('tb-name').textContent = s.appName;
+  document.getElementById('tb-sub').textContent = s.appSub;
+  document.getElementById('lang-btn').textContent = lang === 'hi' ? 'EN' : 'HI';
+  document.getElementById('nl-home').textContent = s.home;
+  document.getElementById('nl-cust').textContent = s.customers;
+  document.getElementById('nl-add').textContent = s.addSale;
+  document.getElementById('nl-pay').textContent = s.addPay;
+  // Add page
+  document.getElementById('lbl-sel-cust').textContent = s.selCust;
+  document.getElementById('sc-input').placeholder = s.selCustPH;
+  document.getElementById('lbl-amt').textContent = s.amtLbl;
+  document.getElementById('lbl-desc').textContent = s.descLbl;
+  document.getElementById('s-desc').placeholder = s.descPH;
+  document.getElementById('lbl-ph').textContent = s.photoLbl;
+  document.getElementById('lbl-take').textContent = s.takePhoto;
+  document.getElementById('save-sale-btn').textContent = s.saveSale;
+  // Pay page
+  document.getElementById('lbl-pay-cust').textContent = s.payCust;
+  document.getElementById('pc-input').placeholder = s.selCustPH;
+  document.getElementById('lbl-pay-amt').textContent = s.payAmt;
+  document.getElementById('lbl-pay-note').textContent = s.payNote;
+  document.getElementById('p-note').placeholder = s.payNotePH;
+  document.getElementById('save-pay-btn').textContent = s.savePay;
+  // Customer search
+  document.getElementById('search').placeholder = s.searchPH;
+  document.getElementById('nc-name').placeholder = s.custName;
+  document.getElementById('nc-phone').placeholder = s.custPhone;
+  document.getElementById('ac-add-btn').textContent = s.addCustBtn;
+  // Overlay call
+  document.getElementById('lbl-call').textContent = s.call;
+  document.querySelector('html').lang = lang === 'hi' ? 'hi' : 'en';
+}
