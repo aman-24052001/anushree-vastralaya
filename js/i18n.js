@@ -74,6 +74,9 @@ const L = {
     smsBtn: 'SMS भेजें', waFallbackHint: 'अगर नंबर WhatsApp पर नहीं है, तो ऊपर SMS भेजें',
     installPrompt: 'इस ऐप को होम स्क्रीन पर जोड़ें — आइकन से सीधे खोलें',
     installManualHint: "इंस्टॉल करने के लिए: ऊपर ⋮ (तीन डॉट) दबाएँ → 'Add to Home screen' या 'Install app' चुनें",
+    billBtn: 'बिल', billTitle: 'बिल', billCustomer: 'ग्राहक:', billDate: 'तारीख:', billItem: 'सामान:',
+    billAmount: 'राशि:', billThanks: 'हमारे यहाँ खरीदारी के लिए धन्यवाद!', billShareBtn: '📤 शेयर करें',
+    billCopied: 'बिल कॉपी हो गया', billCopyFailed: 'शेयर नहीं हो पाया',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -146,6 +149,9 @@ const L = {
     smsBtn: 'Send SMS', waFallbackHint: "If that number isn't on WhatsApp, send an SMS instead",
     installPrompt: 'Add this app to your Home Screen — open it directly from an icon',
     installManualHint: "To install: tap ⋮ (top-right) → choose 'Add to Home screen' or 'Install app'",
+    billBtn: 'Bill', billTitle: 'Bill', billCustomer: 'Customer:', billDate: 'Date:', billItem: 'Item:',
+    billAmount: 'Amount:', billThanks: 'Thank you for shopping with us!', billShareBtn: '📤 Share',
+    billCopied: 'Bill copied', billCopyFailed: 'Could not share',
   }
 };
 
@@ -198,5 +204,7 @@ function applyStaticLabels() {
   document.getElementById('lbl-call').textContent = s.call;
   document.getElementById('settings-title').textContent = s.settings;
   document.getElementById('lbl-import-contact').textContent = s.importContacts;
+  document.getElementById('bill-title').textContent = s.billTitle;
+  document.getElementById('bill-share-btn').textContent = s.billShareBtn;
   document.querySelector('html').lang = lang === 'hi' ? 'hi' : 'en';
 }

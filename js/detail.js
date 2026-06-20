@@ -296,6 +296,7 @@ function renderDetail() {
           </div>
           ${tx.photo ? `<img class="txn-photo-thumb" src="${tx.photo}" onclick="openPV('${tx.photo}', ${tx.amount}, '${esc(tx.desc || '')}', '${tx.date}')"/>` : ''}
           <div class="txn-actions">
+            ${tx.type === 'sale' ? `<button class="txn-action-btn bill" onclick="showBill('${tx.id}')">🧾 ${t('billBtn')}</button>` : ''}
             <button class="txn-action-btn edit" onclick="openEditModal('${tx.id}')">✏️ ${t('editEntry')}</button>
             <button class="txn-action-btn delete" onclick="startDeleteTxn('${tx.id}')">🗑 ${lang === 'hi' ? 'हटाएँ' : 'Delete'}</button>
           </div>

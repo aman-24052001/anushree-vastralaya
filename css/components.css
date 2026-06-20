@@ -291,6 +291,25 @@
 }
 .txn-action-btn.edit   { background: var(--surface2); color: var(--text2); }
 .txn-action-btn.delete { background: var(--danger-bg); color: var(--danger); }
+.txn-action-btn.bill   { background: var(--brand-light); color: var(--brand); }
+
+/* ── BILL / RECEIPT CARD ──────────────────────────────────────────────────── */
+.bill-card {
+  background: var(--white);
+  border: var(--card-border-w) solid var(--card-border-color);
+  border-radius: var(--radius-md);
+  padding: 20px 18px;
+  margin-bottom: 14px;
+}
+.bill-shop { text-align: center; font-size: 1.0625rem; font-weight: 800; color: var(--brand); }
+.bill-tagline { text-align: center; font-size: 0.6875rem; color: var(--text3); margin-bottom: 4px; }
+.bill-divider { border-top: 1.5px dashed var(--border); margin: 10px 0; }
+.bill-row { display: flex; justify-content: space-between; font-size: 0.8125rem; color: var(--text2); padding: 3px 0; }
+.bill-row b { color: var(--text); font-weight: 700; text-align: right; max-width: 60%; }
+.bill-amount-row { display: flex; justify-content: space-between; align-items: center; }
+.bill-amount-row span:first-child { font-size: 0.8125rem; font-weight: 700; color: var(--text2); }
+.bill-amount { font-family: var(--font-mono); font-size: 1.375rem; font-weight: 700; color: var(--brand); }
+.bill-thanks { text-align: center; font-size: 0.75rem; color: var(--text3); margin-top: 4px; }
 
 /* ── TXN FILTER PILLS ────────────────────────────────────────────────────────── */
 .filter-row {
@@ -858,6 +877,37 @@
 [data-theme="bauhaus"] .avatar { background: var(--gold-light); border-radius: 50%; }
 [data-theme="bauhaus"] .call-fab { border-radius: 4px; }
 [data-theme="bauhaus"] .nav-btn.nav-primary .nav-icon-wrap { border-radius: 4px; background: var(--bauhaus-red); }
+
+/* ── GRID BACKDROP + BOXED HEADERS (Neo / Bauhaus only — fits their graphic style) */
+[data-theme="neo"] .topbar, [data-theme="bauhaus"] .topbar,
+[data-theme="neo"] .ov-header, [data-theme="bauhaus"] .ov-header {
+  position: relative;
+  overflow: hidden;
+}
+[data-theme="neo"] .topbar::before, [data-theme="bauhaus"] .topbar::before,
+[data-theme="neo"] .ov-header::before, [data-theme="bauhaus"] .ov-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.07) 0px, rgba(255,255,255,0.07) 1px, transparent 1px, transparent 22px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.07) 0px, rgba(255,255,255,0.07) 1px, transparent 1px, transparent 22px);
+  pointer-events: none;
+}
+[data-theme="neo"] .topbar-row, [data-theme="bauhaus"] .topbar-row,
+[data-theme="neo"] .ov-header-row, [data-theme="bauhaus"] .ov-header-row {
+  position: relative;
+  z-index: 1;
+}
+[data-theme="neo"] .sec-head, [data-theme="bauhaus"] .sec-head {
+  display: inline-flex;
+  border: var(--card-border-w) solid var(--card-border-color);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  background: var(--surface);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
 
 /* ── ICON + LABEL BUTTONS (replaces icon-only emoji buttons) ─────────────────── */
 .icon-label-btn {

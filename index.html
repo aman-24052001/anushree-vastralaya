@@ -239,6 +239,19 @@
   <div class="pv-caption" id="pv-caption" onclick="event.stopPropagation()"></div>
 </div>
 
+<!-- ── BILL ──────────────────────────────────────────────────────────── -->
+<div class="modal-bg" id="bill-modal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">
+      <span id="bill-title">बिल</span>
+      <button class="modal-close" onclick="closeBill()">✕</button>
+    </div>
+    <div class="bill-card" id="bill-body"></div>
+    <button class="submit-btn" id="bill-share-btn" onclick="shareBill()">📤 शेयर करें</button>
+  </div>
+</div>
+
 <!-- ── SETTINGS MODAL ────────────────────────────────────────────────── -->
 <div class="modal-bg" id="settings-modal">
   <div class="modal-sheet">
@@ -277,6 +290,7 @@
 <script src="js/theme.js"></script>
 <script src="js/tour.js"></script>
 <script src="js/backup.js"></script>
+<script src="js/bill.js"></script>
 <script src="js/home.js"></script>
 <script src="js/customers.js"></script>
 <script src="js/forms.js"></script>
