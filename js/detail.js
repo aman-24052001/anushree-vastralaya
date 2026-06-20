@@ -72,13 +72,32 @@ function startDelCust()  { delCustConf = true;  renderDetail(); }
 function cancelDelCust() { delCustConf = false; renderDetail(); }
 
 async function confirmDelCust() {
+  const c = customers.find(x => x.id === curCustId);
   const txToRemove = transactions.filter(x => x.customerId === curCustId);
-  for (const tx of txToRemove) await dbDel('transactions', tx.id);
-  await dbDel('customers', curCustId);
-  customers    = customers.filter(x => x.id !== curCustId);
-  transactions = transactions.filter(x => x.customerId !== curCustId);
-  toast(t('t_custDel'));
-  closeOverlay();
+  const custIdSnapshot = curCustId;
+
+  // Close overlay UI without the usual loadData() reload — that would re-fetch
+  // this customer from IndexedDB before the deferred delete actually happens.
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  curCustId = null; editCustMode = false; delCustConf = false; deletingTxnId = null;
+
+  // Optimistic UI removal — actual DB delete happens only if not undone
+  customers    = customers.filter(x => x.id !== custIdSnapshot);
+  transactions = transactions.filter(x => x.customerId !== custIdSnapshot);
+  renderAll();
+
+  const checkUndone = toastUndo(t('t_custDelUndo'), () => {
+    customers.push(c);
+    transactions.push(...txToRemove);
+    renderAll();
+  });
+
+  setTimeout(async () => {
+    if (checkUndone()) return; // user clicked undo, do not touch DB
+    for (const tx of txToRemove) { try { await dbDel('transactions', tx.id); } catch (e) {} }
+    try { await dbDel('customers', custIdSnapshot); } catch (e) {}
+  }, 4600);
 }
 
 // Delete txn
@@ -87,11 +106,23 @@ function cancelDeleteTxn()   { deletingTxnId = null;  renderDetail(); }
 
 async function confirmDeleteTxn() {
   if (!deletingTxnId) return;
-  await dbDel('transactions', deletingTxnId);
-  transactions  = transactions.filter(x => x.id !== deletingTxnId);
+  const txId = deletingTxnId;
+  const tx = transactions.find(x => x.id === txId);
+  if (!tx) return;
+
+  transactions = transactions.filter(x => x.id !== txId);
   deletingTxnId = null;
-  toast(t('t_txnDel'));
   renderDetail();
+
+  const checkUndone = toastUndo(t('t_txnDelUndo'), () => {
+    transactions.push(tx);
+    renderDetail();
+  });
+
+  setTimeout(async () => {
+    if (checkUndone()) return;
+    try { await dbDel('transactions', txId); } catch (e) {}
+  }, 4600);
 }
 
 function renderDetail() {
@@ -112,6 +143,7 @@ function renderDetail() {
 
   const ag    = agingText(id);
   const agCls = agingClass(id);
+  const photos = allTxns.filter(x => x.photo).map(x => x.photo);
 
   document.getElementById('ov-body').innerHTML = `
 
@@ -140,6 +172,13 @@ function renderDetail() {
         <div class="lc-val brand">${fmt(Math.max(0, b))}</div>
       </div>
     </div>
+
+    <!-- PHOTO GALLERY -->
+    ${photos.length > 0 ? `
+    <div class="sec-head" style="margin-top:0">${t('photosLbl')}</div>
+    <div class="gallery-grid">
+      ${photos.map(p => `<img class="gallery-thumb" src="${p}" onclick="openPV('${p}')"/>`).join('')}
+    </div>` : ''}
 
     <!-- QUICK PAY -->
     ${!clear ? `

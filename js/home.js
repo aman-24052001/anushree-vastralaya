@@ -33,6 +33,12 @@ function renderHome() {
     .sort((a, z) => z.b - a.b)
     .slice(0, 5);
 
+  // Today's activity
+  const todayStr = now.toDateString();
+  const todayTx = [...transactions]
+    .filter(x => new Date(x.date).toDateString() === todayStr)
+    .sort((a, z) => new Date(z.date) - new Date(a.date));
+
   // Recent sales (3)
   const recent = [...transactions]
     .filter(x => x.type === 'sale')
@@ -70,6 +76,27 @@ function renderHome() {
         </div>
       </div>
 
+      <!-- TODAY'S ACTIVITY -->
+      <div class="sec-head">${t('todayActivity')}</div>
+      <div class="card">
+        ${todayTx.length === 0
+          ? `<div style="font-size:12px;color:var(--text3);text-align:center;padding:6px 0">${t('noActivityToday')}</div>`
+          : todayTx.map(tx => {
+              const c = customers.find(x => x.id === tx.customerId);
+              const name = c ? c.name : '—';
+              const time = new Date(tx.date).toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' });
+              return `
+              <div class="activity-item">
+                <div class="activity-dot ${tx.type}"></div>
+                <div class="activity-text">
+                  <b>${name}</b> — ${fmt(tx.amount)} ${tx.type === 'sale' ? t('soldFor') : t('paidLbl2')}
+                </div>
+                <div class="activity-time">${time}</div>
+              </div>`;
+            }).join('')
+        }
+      </div>
+
       <!-- TOP DEBTORS -->
       ${debtors.length > 0 ? `
         <div class="sec-head">${t('topDebtors')}</div>
@@ -77,14 +104,14 @@ function renderHome() {
           const ag = agingText(c.id);
           const agCls = agingClass(c.id);
           return `
-          <div class="cust-card" onclick="openDetail('${c.id}')">
+          <div class="cust-card" onclick="openDetail('${esc(c.id)}')">
             ${avatarHTML(c)}
             <div class="ci">
               <div class="ci-name">${c.name}</div>
               <div class="ci-bal red">${fmt(c.b)}</div>
               ${ag ? `<div class="aging-pill ${agCls}">${ag}</div>` : ''}
             </div>
-            <a class="call-fab" href="tel:${c.phone}" onclick="event.stopPropagation()">📞</a>
+            <a class="call-fab icon-label-btn" href="tel:${c.phone}" onclick="event.stopPropagation()" aria-label="${t('call')}">📞 ${t('call')}</a>
           </div>`;
         }).join('')}
       ` : ''}
@@ -148,7 +175,7 @@ function renderHome() {
         ${recent.map(tx => {
           const c = customers.find(x => x.id === tx.customerId);
           return `
-          <div class="txn-item" style="cursor:pointer" onclick="${c ? `openDetail('${tx.customerId}')` : ''}">
+          <div class="txn-item" style="cursor:pointer" onclick="${c ? `openDetail('${esc(tx.customerId)}')` : ''}">
             <div style="display:flex;align-items:center;gap:10px">
               <div class="txn-icon sale">🛍️</div>
               <div class="txn-info">

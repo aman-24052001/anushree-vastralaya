@@ -47,6 +47,15 @@ const L = {
     t_fillSale: 'ग्राहक और राशि भरें',
     t_fillPay: 'ग्राहक और राशि भरें',
     t_fillCust: 'नाम और फोन भरें',
+    settings: 'सेटिंग्स', appearance: 'दिखावट', themeLbl: 'थीम',
+    themeDefault: 'डिफ़ॉल्ट', themeNeo: 'नियो-ब्रूटल', themeBauhaus: 'बाउहॉस',
+    textSizeLbl: 'टेक्स्ट साइज़', sizeSmall: 'छोटा', sizeNormal: 'सामान्य', sizeLarge: 'बड़ा',
+    recentCust: 'हाल के ग्राहक',
+    todayActivity: 'आज की गतिविधि', noActivityToday: 'आज अभी कुछ नहीं हुआ',
+    photosLbl: 'फ़ोटो',
+    undoBtn: 'पूर्ववत करें',
+    t_custDelUndo: 'ग्राहक हटाया गया', t_txnDelUndo: 'एंट्री हटाई गई',
+    soldFor: 'की बिक्री', paidLbl2: 'का भुगतान मिला',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -92,6 +101,15 @@ const L = {
     t_fillSale: 'Fill customer and amount',
     t_fillPay: 'Fill customer and amount',
     t_fillCust: 'Fill name and phone',
+    settings: 'Settings', appearance: 'Appearance', themeLbl: 'Theme',
+    themeDefault: 'Default', themeNeo: 'Neo-Brutal', themeBauhaus: 'Bauhaus',
+    textSizeLbl: 'Text Size', sizeSmall: 'Small', sizeNormal: 'Normal', sizeLarge: 'Large',
+    recentCust: 'Recent Customers',
+    todayActivity: "Today's Activity", noActivityToday: 'Nothing recorded today',
+    photosLbl: 'Photos',
+    undoBtn: 'Undo',
+    t_custDelUndo: 'Customer deleted', t_txnDelUndo: 'Entry deleted',
+    soldFor: 'sale of', paidLbl2: 'payment received',
   }
 };
 
@@ -138,5 +156,6 @@ function applyStaticLabels() {
   document.getElementById('ac-add-btn').textContent = s.addCustBtn;
   // Overlay call
   document.getElementById('lbl-call').textContent = s.call;
+  document.getElementById('settings-title').textContent = s.settings;
   document.querySelector('html').lang = lang === 'hi' ? 'hi' : 'en';
 }

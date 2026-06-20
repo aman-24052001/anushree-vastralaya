@@ -4,6 +4,8 @@ let customers = [], transactions = [];
 
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 const fmt = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+// Safe for interpolating into a single-quoted HTML attribute (onclick="...('${esc(name)}')")
+const esc = s => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const fmtDate = iso => {
   const d = new Date(iso);
   return d.getDate() + ' ' + t('months')[d.getMonth()] + ' ' + d.getFullYear();
@@ -54,12 +56,70 @@ const avatarHTML = (c, large = false) =>
   `<div class="avatar${large ? ' large' : ''}">${c.photo ? `<img src="${c.photo}"/>` : initial(c.name)}</div>`;
 
 // Toast
+function vibrate(ms = 18) {
+  if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) {} }
+}
+
 function toast(msg, dur = 2000) {
   const el = document.getElementById('toast');
-  el.textContent = msg;
+  el.classList.remove('undo-toast');
+  el.innerHTML = `<span>✓ ${msg}</span>`;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), dur);
+  vibrate(16);
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), dur);
 }
+
+// Toast with an Undo action — caller passes onUndo callback; auto-commits after `dur` ms
+function toastUndo(msg, onUndo, dur = 4500) {
+  const el = document.getElementById('toast');
+  el.classList.add('undo-toast');
+  el.innerHTML = `<span style="flex:1">${msg}</span><button class="toast-undo-btn" id="toast-undo-btn">${t('undoBtn')}</button>`;
+  el.classList.add('show');
+  vibrate(16);
+  clearTimeout(el._t);
+  let undone = false;
+  document.getElementById('toast-undo-btn').onclick = () => {
+    undone = true;
+    el.classList.remove('show');
+    onUndo();
+  };
+  el._t = setTimeout(() => {
+    el.classList.remove('show');
+    el.classList.remove('undo-toast');
+  }, dur);
+  return () => undone; // caller can check if it was undone before committing
+}
+
+// Recent customers (most recently transacted-with, for quick-pick trays)
+function recentCustomers(limit = 8) {
+  const seen = new Set();
+  const ordered = [];
+  [...transactions]
+    .sort((a, z) => new Date(z.date) - new Date(a.date))
+    .forEach(tx => {
+      if (!seen.has(tx.customerId)) { seen.add(tx.customerId); ordered.push(tx.customerId); }
+    });
+  return ordered
+    .map(id => customers.find(c => c.id === id))
+    .filter(Boolean)
+    .slice(0, limit);
+}
+
+function recentTrayHTML(onPickFnName) {
+  const list = recentCustomers(8);
+  if (!list.length) return '';
+  return `
+    <div class="recent-tray-label">${t('recentCust')}</div>
+    <div class="recent-tray">
+      ${list.map(c => `
+        <div class="recent-chip" onclick="${onPickFnName}('${c.id}','${c.name.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')">
+          ${avatarHTML(c)}
+          <span>${c.name.split(' ')[0]}</span>
+        </div>`).join('')}
+    </div>`;
+}
+
 
 // Load all data
 async function loadData() {
@@ -116,4 +176,17 @@ function pieSliceSVG(cx, cy, r, startDeg, endDeg, color) {
   const s = toXY(startDeg), e = toXY(endDeg);
   const lg = endDeg - startDeg > 180 ? 1 : 0;
   return `<path d="M${cx},${cy} L${s.x},${s.y} A${r},${r} 0 ${lg},1 ${e.x},${e.y} Z" fill="${color}"/>`;
+}
+
+// Live Indian-comma amount preview under an input as the user types
+function wireLivePreview(inputId, previewId) {
+  const inp = document.getElementById(inputId);
+  const prev = document.getElementById(previewId);
+  if (!inp || !prev) return;
+  const update = () => {
+    const v = parseFloat(inp.value);
+    prev.textContent = v > 0 ? fmt(v) : '';
+  };
+  inp.addEventListener('input', update);
+  update();
 }

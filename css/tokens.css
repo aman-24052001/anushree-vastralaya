@@ -1,55 +1,127 @@
-/* ── DESIGN TOKENS ─────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;700&display=swap');
+/* ── FONTS ──────────────────────────────────────────────────────────────────── */
+/* Poppins covers Latin + Devanagari natively (best bilingual match — used as the
+   safety net everywhere). Space Grotesk/Plus Jakarta Sans are Latin-only, so every
+   theme explicitly falls back to Noto Sans Devanagari for Hindi glyphs, never the
+   OS default, so Hindi looks intentional instead of accidental on every device. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
+/* ── BASE TOKENS (theme-independent) ───────────────────────────────────────── */
 :root {
-  /* Brand */
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --success:    #0E9F6E;
+  --success-bg: #D1FAE5;
+  --danger:     #E11D48;
+  --danger-bg:  #FEE2E2;
+  --warning:    #F59E0B;
+  --warning-bg: #FEF3C7;
+
+  --text-scale: 1;
+}
+
+/* ── THEME: default (warm "Jupiter" style — current look, refined) ─────────── */
+:root,
+:root[data-theme="default"] {
   --brand:       #C2185B;
   --brand-dark:  #880E4F;
   --brand-light: #FCE4EC;
-  --brand-mid:   #E91E63;
-
-  /* Gradient (Jupiter-style warm header) */
   --grad-start:  #E91E63;
   --grad-end:    #C2185B;
-
-  /* Gold accents */
   --gold:        #F59E0B;
   --gold-light:  #FEF3C7;
 
-  /* Semantic */
-  --success:     #10B981;
-  --success-bg:  #D1FAE5;
-  --danger:      #EF4444;
-  --danger-bg:   #FEE2E2;
-  --warning:     #F59E0B;
-  --warning-bg:  #FEF3C7;
+  --white:   #FFFFFF;
+  --bg:      #F8F9FC;
+  --surface: #FFFFFF;
+  --surface2:#F3F4F6;
+  --border:  #E5E7EB;
+  --text:    #111827;
+  --text2:   #6B7280;
+  --text3:   #9CA3AF;
 
-  /* Neutrals */
-  --white:       #FFFFFF;
-  --bg:          #F8F9FC;
-  --surface:     #FFFFFF;
-  --surface2:    #F3F4F6;
-  --border:      #E5E7EB;
-  --text:        #111827;
-  --text2:       #6B7280;
-  --text3:       #9CA3AF;
-
-  /* Shadows */
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:   0 4px 16px rgba(0,0,0,0.08);
-  --shadow-lg:   0 8px 32px rgba(0,0,0,0.10);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
   --shadow-card: 0 2px 12px rgba(194,24,91,0.08);
+  --press-shadow: var(--shadow-sm);
 
-  /* Radius */
-  --radius-sm:   8px;
-  --radius-md:   14px;
-  --radius-lg:   20px;
-  --radius-xl:   28px;
-  --radius-full: 9999px;
+  --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px; --radius-xl: 28px; --radius-full: 9999px;
+  --card-border-w: 0px;
+  --card-border-color: transparent;
 
-  /* Typography */
-  --font:        'Plus Jakarta Sans', -apple-system, sans-serif;
-  --font-mono:   'Roboto Mono', monospace;
+  --font: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
+  --header-bg: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-end) 100%);
+  --header-text: #FFFFFF;
+}
+
+/* ── THEME: neo (Neobrutalism — cream / black / electric, hard offset shadows) */
+:root[data-theme="neo"] {
+  --brand:       #111111;
+  --brand-dark:  #000000;
+  --brand-light: #FFF3FA;
+  --grad-start:  #111111;
+  --grad-end:    #111111;
+  --gold:        #FFD400;
+  --gold-light:  #FFF6CC;
+  --electric:    #FF3EA5;
+
+  --white:   #FFFFFF;
+  --bg:      #FFF8E7;
+  --surface: #FFFFFF;
+  --surface2:#FFF1CF;
+  --border:  #111111;
+  --text:    #111111;
+  --text2:   #3F3F3F;
+  --text3:   #6B6B6B;
+
+  --shadow-sm: 2px 2px 0 #111111;
+  --shadow-md: 4px 4px 0 #111111;
+  --shadow-lg: 6px 6px 0 #111111;
+  --shadow-card: 4px 4px 0 #111111;
+  --press-shadow: 1px 1px 0 #111111;
+
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 10px; --radius-xl: 14px; --radius-full: 9999px;
+  --card-border-w: 2.5px;
+  --card-border-color: #111111;
+
+  --font: 'Space Grotesk', 'Noto Sans Devanagari', sans-serif;
+  --header-bg: #111111;
+  --header-text: #FFD400;
+}
+
+/* ── THEME: bauhaus (primary triad — red/yellow/blue on cream, flat & structured) */
+:root[data-theme="bauhaus"] {
+  --brand:       #1356A2;
+  --brand-dark:  #0D3D75;
+  --brand-light: #DCE9F7;
+  --grad-start:  #1356A2;
+  --grad-end:    #1356A2;
+  --gold:        #F2B705;
+  --gold-light:  #FCEBB0;
+  --bauhaus-red: #E63312;
+
+  --white:   #FFFFFF;
+  --bg:      #F5F0E6;
+  --surface: #FFFFFF;
+  --surface2:#EFE8D8;
+  --border:  #1A1A1A;
+  --text:    #1A1A1A;
+  --text2:   #55504A;
+  --text3:   #8A847A;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: 0 6px 0 rgba(0,0,0,0.06);
+  --shadow-card: none;
+  --press-shadow: none;
+
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 6px; --radius-xl: 8px; --radius-full: 9999px;
+  --card-border-w: 1.5px;
+  --card-border-color: #1A1A1A;
+
+  --font: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+  --header-bg: var(--brand);
+  --header-text: #FFFFFF;
 }
 
 /* ── RESET ──────────────────────────────────────────────────────────────────── */
@@ -64,6 +136,7 @@ html, body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+html { font-size: calc(16px * var(--text-scale)); }
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -71,8 +144,15 @@ body {
   min-height: 100vh;
   max-width: 430px;
   margin: 0 auto;
+  transition: background 0.2s;
 }
-button { font-family: var(--font); cursor: pointer; border: none; outline: none; }
+button { font-family: var(--font); cursor: pointer; border: none; outline: none; background: none; }
 input, select, textarea { font-family: var(--font); outline: none; }
 a { text-decoration: none; color: inherit; }
 img { display: block; }
+
+/* Minimum tap target — applies in every theme */
+button, a.call-fab, .nav-btn, .txn-action-btn, .filter-pill, .lang-pill, .icon-btn {
+  min-height: 44px;
+}
+.call-fab { min-width: 44px; }

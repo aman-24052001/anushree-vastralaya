@@ -34,7 +34,7 @@ function renderCustomers() {
     const ag    = agingText(c.id);
     const agCls = agingClass(c.id);
     return `
-    <div class="cust-card" onclick="openDetail('${c.id}')">
+    <div class="cust-card" onclick="openDetail('${esc(c.id)}')">
       ${avatarHTML(c)}
       <div class="ci">
         <div class="ci-name">${c.name}</div>
@@ -44,7 +44,7 @@ function renderCustomers() {
         <div class="ci-meta">${c.phone}</div>
         ${ag ? `<div class="aging-pill ${agCls}">${ag}</div>` : ''}
       </div>
-      <a class="call-fab" href="tel:${c.phone}" onclick="event.stopPropagation()">📞</a>
+      <a class="call-fab icon-label-btn" href="tel:${c.phone}" onclick="event.stopPropagation()" aria-label="${t('call')}">📞 ${t('call')}</a>
     </div>`;
   }).join('');
 }

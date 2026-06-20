@@ -1,17 +1,20 @@
 /* ── TOPBAR ──────────────────────────────────────────────────────────────────── */
 .topbar {
-  background: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-end) 100%);
+  background: var(--header-bg);
   padding: 14px 18px 18px;
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: var(--card-border-w) solid var(--card-border-color);
 }
 .topbar-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 4px;
+  gap: 8px;
 }
+.topbar-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .topbar-logo {
   display: flex;
   align-items: center;
@@ -27,7 +30,7 @@
 .topbar-name {
   font-size: 16px;
   font-weight: 800;
-  color: white;
+  color: var(--header-text);
   letter-spacing: -0.3px;
 }
 .topbar-tagline {
@@ -57,11 +60,11 @@
   width: 100%;
   max-width: 430px;
   background: var(--white);
-  border-top: 1px solid var(--border);
+  border-top: var(--card-border-w, 1px) solid var(--card-border-color, var(--border));
   display: flex;
   z-index: 100;
   padding-bottom: env(safe-area-inset-bottom, 0);
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow-lg);
 }
 .nav-btn {
   flex: 1;
@@ -156,11 +159,12 @@
   .overlay { left: 0; margin-left: 0; max-width: 100%; }
 }
 .ov-header {
-  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  background: var(--header-bg);
   padding: 14px 18px 20px;
   position: sticky;
   top: 0;
   z-index: 10;
+  border-bottom: var(--card-border-w) solid var(--card-border-color);
 }
 .ov-header-row {
   display: flex;
@@ -185,7 +189,7 @@
 .ov-title {
   font-size: 18px;
   font-weight: 800;
-  color: white;
+  color: var(--header-text);
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -227,6 +231,7 @@
   max-width: 430px;
   max-height: 88vh;
   overflow-y: auto;
+  border-top: var(--card-border-w) solid var(--card-border-color);
 }
 .modal-handle {
   width: 36px;
@@ -288,7 +293,7 @@
 /* ── TOAST ───────────────────────────────────────────────────────────────────── */
 .toast {
   position: fixed;
-  bottom: 82px;
+  bottom: 90px;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
   background: var(--text);

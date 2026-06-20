@@ -12,7 +12,7 @@ function buildDropdown(inputId, dropId, onPickFn) {
   if (!list.length) { dd.classList.remove('open'); return; }
 
   dd.innerHTML = list.map(c => `
-    <div class="drop-item" onclick="(${onPickFn.toString()})('${c.id}','${c.name.replace(/'/g,"\\'")}')">
+    <div class="drop-item" onclick="(${onPickFn.toString()})('${esc(c.id)}','${esc(c.name)}')">
       <div class="drop-av">${c.photo ? `<img src="${c.photo}"/>` : initial(c.name)}</div>
       <span>${c.name}</span>
       <span class="drop-phone">${c.phone}</span>
@@ -55,6 +55,8 @@ function resetSaleForm() {
   document.getElementById('ph-file').value = '';
   document.getElementById('sale-drop').classList.remove('open');
   salePhotoData = null;
+  document.getElementById('sale-recent').innerHTML = recentTrayHTML('pickSaleCust');
+  wireLivePreview('s-amt', 's-amt-preview');
 }
 
 async function saveSale() {
@@ -90,6 +92,8 @@ function resetPayForm() {
   document.getElementById('pc-id').value = '';
   document.getElementById('pay-drop').classList.remove('open');
   document.getElementById('pay-bal-strip').style.display = 'none';
+  document.getElementById('pay-recent').innerHTML = recentTrayHTML('pickPayCust');
+  wireLivePreview('p-amt', 'p-amt-preview');
 }
 
 async function savePayment() {
