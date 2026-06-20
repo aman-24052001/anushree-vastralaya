@@ -51,6 +51,15 @@ function renderSettings() {
   const curSize  = getTextSize();
 
   document.getElementById('settings-body').innerHTML = `
+    <div class="settings-row-label">${t('appGuide')}</div>
+    <button class="guide-btn" onclick="openTourFromSettings()">
+      <span>🎓</span>
+      <div>
+        <div class="guide-btn-title">${t('appGuide')}</div>
+        <div class="guide-btn-sub">${t('appGuideSub')}</div>
+      </div>
+    </button>
+
     <div class="settings-row-label">${t('themeLbl')}</div>
     <div class="theme-grid">
       ${THEMES.map(th => `

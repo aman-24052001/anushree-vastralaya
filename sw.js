@@ -1,5 +1,5 @@
 /* sw.js — app-shell cache so the ledger opens even with zero signal */
-const CACHE = 'av-shell-v2';
+const CACHE = 'av-shell-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const ASSETS = [
   './js/i18n.js',
   './js/utils.js',
   './js/theme.js',
+  './js/tour.js',
   './js/home.js',
   './js/customers.js',
   './js/forms.js',

@@ -1018,3 +1018,82 @@
   text-align: center;
 }
 .size-opt.active { border-color: var(--brand); background: var(--brand-light); color: var(--brand); }
+
+/* ── APP GUIDE BUTTON (Settings) ──────────────────────────────────────────── */
+.guide-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: var(--radius-md);
+  background: var(--brand-light);
+  border: var(--card-border-w) solid var(--card-border-color);
+  text-align: left;
+  margin-bottom: 4px;
+}
+.guide-btn span { font-size: 22px; flex-shrink: 0; }
+.guide-btn-title { font-size: 13px; font-weight: 700; color: var(--brand); }
+.guide-btn-sub { font-size: 11px; color: var(--text2); margin-top: 1px; }
+
+/* ── GUIDED TOUR (full-screen, swipe-free, button-driven) ────────────────── */
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: var(--surface);
+  display: none;
+  flex-direction: column;
+  max-width: 560px;
+  left: 50%;
+  margin-left: -280px;
+}
+.tour-overlay.open { display: flex; }
+@media (max-width: 560px) {
+  .tour-overlay { left: 0; margin-left: 0; max-width: 100%; }
+}
+.tour-skip {
+  align-self: flex-end;
+  margin: 18px 16px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text3);
+  padding: 8px 12px;
+  background: none;
+}
+.tour-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 30px;
+}
+.tour-icon { font-size: 60px; margin-bottom: 22px; }
+.tour-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.tour-body { font-size: 14px; color: var(--text2); line-height: 1.55; max-width: 320px; }
+.tour-dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 18px; }
+.tour-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); transition: width 0.2s, background 0.2s; }
+.tour-dot.active { background: var(--brand); width: 18px; border-radius: 4px; }
+.tour-actions { display: flex; gap: 10px; padding: 0 24px 28px; }
+.tour-back-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--surface2);
+  color: var(--text2);
+  font-weight: 700;
+  border: var(--card-border-w) solid var(--card-border-color);
+}
+.tour-next-btn {
+  flex: 2;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--header-bg);
+  color: var(--header-text);
+  font-weight: 700;
+  border: var(--card-border-w) solid var(--card-border-color);
+  box-shadow: var(--shadow-md);
+}
+.tour-next-btn:active { transform: translate(1px, 1px); }

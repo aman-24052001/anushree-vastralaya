@@ -26,6 +26,7 @@ initDB()
   .then(() => {
     applyStaticLabels();
     renderHome();
+    checkFirstRun();
   })
   .catch(err => {
     document.body.innerHTML = `

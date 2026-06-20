@@ -230,6 +230,21 @@
   </div>
 </div>
 
+<!-- ── GUIDED TOUR ────────────────────────────────────────────────────── -->
+<div class="tour-overlay" id="tour-overlay">
+  <button class="tour-skip" id="tour-skip-btn" onclick="skipTour()">Skip</button>
+  <div class="tour-content">
+    <div class="tour-icon" id="tour-icon"></div>
+    <div class="tour-title" id="tour-title"></div>
+    <div class="tour-body" id="tour-body"></div>
+  </div>
+  <div class="tour-dots" id="tour-dots"></div>
+  <div class="tour-actions">
+    <button class="tour-back-btn" id="tour-back-btn" onclick="prevTourSlide()">Back</button>
+    <button class="tour-next-btn" id="tour-next-btn" onclick="nextTourSlide()">Next</button>
+  </div>
+</div>
+
 <!-- ── TOAST ─────────────────────────────────────────────────────────── -->
 <div class="toast" id="toast"></div>
 
@@ -238,6 +253,7 @@
 <script src="js/i18n.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/theme.js"></script>
+<script src="js/tour.js"></script>
 <script src="js/home.js"></script>
 <script src="js/customers.js"></script>
 <script src="js/forms.js"></script>

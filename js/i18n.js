@@ -56,6 +56,8 @@ const L = {
     undoBtn: 'पूर्ववत करें',
     t_custDelUndo: 'ग्राहक हटाया गया', t_txnDelUndo: 'एंट्री हटाई गई',
     soldFor: 'की बिक्री', paidLbl2: 'का भुगतान मिला',
+    appGuide: 'ऐप गाइड', appGuideSub: 'सभी फीचर फिर से देखें',
+    tourNext: 'आगे', tourBack: 'पीछे', tourSkip: 'छोड़ें', tourDone: 'समाप्त',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -110,6 +112,8 @@ const L = {
     undoBtn: 'Undo',
     t_custDelUndo: 'Customer deleted', t_txnDelUndo: 'Entry deleted',
     soldFor: 'sale of', paidLbl2: 'payment received',
+    appGuide: 'App Guide', appGuideSub: 'See all features again',
+    tourNext: 'Next', tourBack: 'Back', tourSkip: 'Skip', tourDone: 'Done',
   }
 };
 
