@@ -200,11 +200,21 @@ function renderHome() {
 // "Add to Home Screen" nudge — only appears once Chrome has actually offered the
 // install event, and never if it's already running as the installed app
 function installBannerHTML() {
-  if (!deferredInstallEvent || isAppInstalled()) return '';
+  if (isAppInstalled()) return '';
+  if (deferredInstallEvent) {
+    return `
+      <div class="install-banner" onclick="installApp()">
+        <span class="install-banner-icon">📲</span>
+        <span class="install-banner-text">${t('installPrompt')}</span>
+        <span class="install-banner-arrow">›</span>
+      </div>`;
+  }
+  // Chrome's automatic prompt is gated by its own engagement heuristics and isn't
+  // guaranteed to fire on a given visit even when everything qualifies — so don't
+  // leave the user with nothing if it hasn't shown up yet, give the manual steps.
   return `
-    <div class="install-banner" onclick="installApp()">
+    <div class="install-banner">
       <span class="install-banner-icon">📲</span>
-      <span class="install-banner-text">${t('installPrompt')}</span>
-      <span class="install-banner-arrow">›</span>
+      <span class="install-banner-text">${t('installManualHint')}</span>
     </div>`;
 }
