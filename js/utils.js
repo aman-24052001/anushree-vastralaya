@@ -4,6 +4,14 @@ let customers = [], transactions = [];
 
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 const fmt = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+// Strip to digits, drop a leading country code / trunk 0, land on a bare 10-digit Indian number
+// (matches what wa.me link building below already assumes the stored phone looks like)
+function cleanPhone(raw) {
+  let d = String(raw || '').replace(/\D/g, '');
+  if (d.length === 12 && d.startsWith('91')) d = d.slice(2);
+  else if (d.length === 11 && d.startsWith('0')) d = d.slice(1);
+  return d;
+}
 // Safe for interpolating into a single-quoted HTML attribute (onclick="...('${esc(name)}')")
 const esc = s => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const fmtDate = iso => {

@@ -70,6 +70,7 @@ const L = {
     backupInvalid: 'यह सही बैकअप फ़ाइल नहीं है',
     backupReminder: 'सलाह: काफी समय से बैकअप नहीं लिया — डेटा सुरक्षित रखने के लिए अभी ले लें',
     autoBackupSaved: 'ऑटो-बैकअप डाउनलोड फ़ोल्डर में सेव हुआ',
+    importContacts: 'फ़ोन से चुनें', contactsNotSupported: 'यह ब्राउज़र इसका समर्थन नहीं करता — नाम-फोन खुद लिखें',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -138,6 +139,7 @@ const L = {
     backupInvalid: 'That is not a valid backup file',
     backupReminder: "Tip: It's been a while since your last backup — back up now to keep your data safe",
     autoBackupSaved: 'Auto-backup saved to Downloads',
+    importContacts: 'Pick from Contacts', contactsNotSupported: "Not supported in this browser — type name/phone manually",
   }
 };
 
@@ -189,5 +191,6 @@ function applyStaticLabels() {
   // Overlay call
   document.getElementById('lbl-call').textContent = s.call;
   document.getElementById('settings-title').textContent = s.settings;
+  document.getElementById('lbl-import-contact').textContent = s.importContacts;
   document.querySelector('html').lang = lang === 'hi' ? 'hi' : 'en';
 }
