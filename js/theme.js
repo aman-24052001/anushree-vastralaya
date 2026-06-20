@@ -51,6 +51,22 @@ function renderSettings() {
   const curSize  = getTextSize();
 
   document.getElementById('settings-body').innerHTML = `
+    <div class="settings-row-label">${t('backupSection')}</div>
+    <button class="guide-btn" onclick="exportBackup()">
+      <span>💾</span>
+      <div>
+        <div class="guide-btn-title">${t('exportBackup')}</div>
+        <div class="guide-btn-sub">${t('exportBackupSub')}</div>
+      </div>
+    </button>
+    <button class="guide-btn" onclick="triggerImportPicker()">
+      <span>📂</span>
+      <div>
+        <div class="guide-btn-title">${t('importBackup')}</div>
+        <div class="guide-btn-sub">${t('importBackupSub')}</div>
+      </div>
+    </button>
+
     <div class="settings-row-label">${t('appGuide')}</div>
     <button class="guide-btn" onclick="openTourFromSettings()">
       <span>🎓</span>

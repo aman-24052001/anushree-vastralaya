@@ -64,6 +64,8 @@ function renderHome() {
 
     <div class="page-body">
 
+      ${backupReminderHTML()}
+
       <!-- MINI STATS -->
       <div class="stats-grid" style="margin-top:14px">
         <div class="stat-tile">

@@ -22,6 +22,14 @@ const dbAll = store => new Promise(res => {
   r.onsuccess = () => res(r.result || []);
 });
 
+const dbClear = store => new Promise((res, rej) => {
+  const tx = db.transaction(store, 'readwrite');
+  tx.objectStore(store).clear();
+  tx.oncomplete = res;
+  tx.onerror = () => rej(tx.error);
+  tx.onabort = () => rej(tx.error);
+});
+
 const dbPut = (store, obj) => new Promise((res, rej) => {
   const tx = db.transaction(store, 'readwrite');
   tx.objectStore(store).put(obj);

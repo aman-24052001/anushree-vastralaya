@@ -61,6 +61,14 @@ const L = {
     payMethod: 'भुगतान का तरीका', methodCash: 'नकद', methodUpi: 'यूपीआई',
     qrHint: 'ग्राहक को यह दिखाएँ — वह स्कैन करके भुगतान करेगा',
     cashTag: '💵 नकद', upiTag: '📱 यूपीआई',
+    backupSection: 'बैकअप और रीस्टोर',
+    exportBackup: 'बैकअप सेव करें', exportBackupSub: 'सारा डेटा एक फ़ाइल में डाउनलोड फ़ोल्डर में सेव करें',
+    importBackup: 'बैकअप से वापस लाएँ', importBackupSub: 'पुरानी बैकअप फ़ाइल से डेटा वापस लाएँ',
+    importConfirm: 'यह अभी का सारा डेटा बदल देगा। जारी रखें?',
+    backupSaved: 'बैकअप डाउनलोड फ़ोल्डर में सेव हो गया',
+    backupRestored: 'बैकअप वापस आ गया',
+    backupInvalid: 'यह सही बैकअप फ़ाइल नहीं है',
+    backupReminder: 'सलाह: काफी समय से बैकअप नहीं लिया — डेटा सुरक्षित रखने के लिए अभी ले लें',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -120,6 +128,14 @@ const L = {
     payMethod: 'Payment Method', methodCash: 'Cash', methodUpi: 'UPI',
     qrHint: 'Show this to the customer — they scan it to pay',
     cashTag: '💵 Cash', upiTag: '📱 UPI',
+    backupSection: 'Backup & Restore',
+    exportBackup: 'Export Backup', exportBackupSub: 'Save all data as a file in your Downloads folder',
+    importBackup: 'Restore from Backup', importBackupSub: 'Load data back from a backup file',
+    importConfirm: 'This will replace all current data. Continue?',
+    backupSaved: 'Backup saved to Downloads',
+    backupRestored: 'Backup restored',
+    backupInvalid: 'That is not a valid backup file',
+    backupReminder: "Tip: It's been a while since your last backup — back up now to keep your data safe",
   }
 };
 

@@ -1,5 +1,5 @@
 /* sw.js — app-shell cache so the ledger opens even with zero signal */
-const CACHE = 'av-shell-v4';
+const CACHE = 'av-shell-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -12,6 +12,7 @@ const ASSETS = [
   './js/utils.js',
   './js/theme.js',
   './js/tour.js',
+  './js/backup.js',
   './js/home.js',
   './js/customers.js',
   './js/forms.js',
@@ -42,17 +43,14 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      const network = fetch(e.request)
-        .then(resp => {
-          if (resp && resp.status === 200) {
-            const copy = resp.clone();
-            caches.open(CACHE).then(c => c.put(e.request, copy));
-          }
-          return resp;
-        })
-        .catch(() => cached); // offline → serve whatever was cached
-      return cached || network;
-    })
+    fetch(e.request)
+      .then(resp => {
+        if (resp && resp.status === 200) {
+          const copy = resp.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+        }
+        return resp;
+      })
+      .catch(() => caches.match(e.request)) // only offline falls back to the cached copy
   );
 });
