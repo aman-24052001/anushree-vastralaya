@@ -78,6 +78,8 @@ const L = {
     billAmount: 'राशि:', billThanks: 'हमारे यहाँ खरीदारी के लिए धन्यवाद!', billShareBtn: '📤 शेयर करें',
     billCopied: 'बिल कॉपी हो गया', billCopyFailed: 'शेयर नहीं हो पाया',
     billPdfSaved: 'बिल PDF डाउनलोड फ़ोल्डर में सेव हुआ',
+    addItemBtn: 'और सामान जोड़ें', totalLbl: 'कुल राशि', itemNum: 'सामान',
+    itemDescPH: 'जैसे: लाल बनारसी साड़ी', itemAmtPH: 'राशि (₹)', moreItems: 'और',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -154,6 +156,8 @@ const L = {
     billAmount: 'Amount:', billThanks: 'Thank you for shopping with us!', billShareBtn: '📤 Share',
     billCopied: 'Bill copied', billCopyFailed: 'Could not share',
     billPdfSaved: 'Bill PDF saved to Downloads',
+    addItemBtn: 'Add another item', totalLbl: 'Total Amount', itemNum: 'Item',
+    itemDescPH: 'e.g. Red Banarasi Saree', itemAmtPH: 'Amount (₹)', moreItems: 'more',
   }
 };
 
@@ -180,12 +184,13 @@ function applyStaticLabels() {
   // Add page
   document.getElementById('lbl-sel-cust').textContent = s.selCust;
   document.getElementById('sc-input').placeholder = s.selCustPH;
-  document.getElementById('lbl-amt').textContent = s.amtLbl;
-  document.getElementById('lbl-desc').textContent = s.descLbl;
-  document.getElementById('s-desc').placeholder = s.descPH;
-  document.getElementById('lbl-ph').textContent = s.photoLbl;
-  document.getElementById('lbl-take').textContent = s.takePhoto;
+  document.getElementById('lbl-add-item').textContent = s.addItemBtn;
+  document.getElementById('lbl-total').textContent = s.totalLbl;
   document.getElementById('save-sale-btn').textContent = s.saveSale;
+  if (typeof renderSaleItemRows === 'function' && document.getElementById('sale-items-list')) {
+    renderSaleItemRows();
+    updateSaleTotal();
+  }
   // Pay page
   document.getElementById('lbl-pay-cust').textContent = s.payCust;
   document.getElementById('pc-input').placeholder = s.selCustPH;

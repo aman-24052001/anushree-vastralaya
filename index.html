@@ -90,25 +90,14 @@
       <div class="drop-list" id="sale-drop"></div>
     </div>
 
-    <div class="f-group">
-      <label class="f-label" id="lbl-amt">राशि (₹)</label>
-      <input class="f-input amount" id="s-amt" type="number" inputmode="decimal" placeholder="0"/>
-    </div>
-    <div class="amt-preview" id="s-amt-preview"></div>
+    <div id="sale-items-list"></div>
+    <button class="add-item-btn" id="add-item-btn" onclick="addSaleItemRow()">
+      + <span id="lbl-add-item">और सामान जोड़ें</span>
+    </button>
 
-    <div class="f-group">
-      <label class="f-label" id="lbl-desc">विवरण</label>
-      <input class="f-input" id="s-desc" type="text" placeholder="जैसे: लाल बनारसी साड़ी"/>
-    </div>
-
-    <div class="f-group">
-      <label class="f-label" id="lbl-ph">फ़ोटो</label>
-      <input type="file" id="ph-file" accept="image/*" capture="environment"
-        style="display:none" onchange="handleSalePhoto(event)"/>
-      <button class="photo-upload-btn" onclick="document.getElementById('ph-file').click()">
-        <span id="lbl-take">📷  फ़ोटो लें</span>
-      </button>
-      <img class="photo-preview-img" id="ph-prev"/>
+    <div class="sale-total-row">
+      <span id="lbl-total">कुल राशि</span>
+      <span class="sale-total-amt" id="sale-total-amt">₹0</span>
     </div>
 
     <button class="submit-btn" id="save-sale-btn" onclick="saveSale()">बिक्री दर्ज करें</button>

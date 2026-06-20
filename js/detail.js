@@ -7,6 +7,7 @@ let delCustConf   = false;
 let deletingTxnId = null;
 let qpMethod      = 'cash';
 let galleryExpanded = false;
+let expandedTxnIds = new Set();
 
 function openDetail(id) {
   curCustId    = id;
@@ -16,6 +17,7 @@ function openDetail(id) {
   txnFilter    = 'all';
   qpMethod     = 'cash';
   galleryExpanded = false;
+  expandedTxnIds = new Set();
 
   const c = customers.find(x => x.id === id); if (!c) return;
   document.getElementById('ov-name').textContent = c.name;
@@ -58,6 +60,12 @@ function setQpMethod(m) {
 
 function expandGallery() {
   galleryExpanded = true;
+  renderDetail();
+}
+
+function toggleTxnExpand(id) {
+  if (expandedTxnIds.has(id)) expandedTxnIds.delete(id);
+  else expandedTxnIds.add(id);
   renderDetail();
 }
 
@@ -161,7 +169,12 @@ function renderDetail() {
 
   const ag    = agingText(id);
   const agCls = agingClass(id);
-  const photoTxns = allTxns.filter(x => x.photo);
+  const photoEntries = [];
+  allTxns.filter(x => x.type === 'sale').forEach(tx => {
+    saleItems(tx).forEach(it => {
+      if (it.photo) photoEntries.push({ photo: it.photo, amount: it.amount, desc: it.desc, date: tx.date });
+    });
+  });
 
   document.getElementById('ov-body').innerHTML = `
 
@@ -192,15 +205,15 @@ function renderDetail() {
     </div>
 
     <!-- PHOTO GALLERY -->
-    ${photoTxns.length > 0 ? `
+    ${photoEntries.length > 0 ? `
     <div class="sec-head" style="margin-top:0">${t('photosLbl')}</div>
     <div class="gallery-grid">
-      ${photoTxns.slice(0, galleryExpanded ? photoTxns.length : 3).map(tx => `
-        <img class="gallery-thumb" src="${tx.photo}"
-          onclick="openPV('${tx.photo}', ${tx.amount}, '${esc(tx.desc || '')}', '${tx.date}')"/>
+      ${photoEntries.slice(0, galleryExpanded ? photoEntries.length : 3).map(p => `
+        <img class="gallery-thumb" src="${p.photo}"
+          onclick="openPV('${p.photo}', ${p.amount}, '${esc(p.desc || '')}', '${p.date}')"/>
       `).join('')}
-      ${!galleryExpanded && photoTxns.length > 3 ? `
-        <div class="gallery-more-tile" onclick="expandGallery()">+${photoTxns.length - 3}</div>
+      ${!galleryExpanded && photoEntries.length > 3 ? `
+        <div class="gallery-more-tile" onclick="expandGallery()">+${photoEntries.length - 3}</div>
       ` : ''}
     </div>` : ''}
 
@@ -284,23 +297,33 @@ function renderDetail() {
     <!-- TRANSACTIONS -->
     ${filtered.length === 0
       ? `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">${t('noTxn')}</div></div>`
-      : filtered.map(tx => `
+      : filtered.map(tx => {
+          const items   = tx.type === 'sale' ? saleItems(tx) : [];
+          const isMulti = items.length > 1;
+          const expanded = expandedTxnIds.has(tx.id);
+          return `
         <div class="txn-item">
           <div style="display:flex;align-items:center;gap:10px">
             <div class="txn-icon ${tx.type}">${tx.type === 'sale' ? '🛍️' : '💰'}</div>
             <div class="txn-info">
               <div class="txn-label">${tx.type === 'sale' ? t('sale') : t('payment')}${tx.method ? ' · ' + t(tx.method === 'upi' ? 'upiTag' : 'cashTag') : ''}${tx.desc ? ' · ' + tx.desc : ''}</div>
               <div class="txn-sub">${fmtDate(tx.date)}</div>
+              ${isMulti ? `<div class="txn-items-expand" onclick="toggleTxnExpand('${tx.id}')">${expanded ? '▴' : '▾'} ${items.length} ${t('itemNum').toLowerCase()}</div>` : ''}
             </div>
             <div class="txn-amount ${tx.type}">${tx.type === 'sale' ? '+' : '-'}${fmt(tx.amount)}</div>
           </div>
+          ${isMulti && expanded ? `
+          <div class="txn-items-detail">
+            ${items.map(it => `<div class="txn-item-detail-row"><span>${it.desc || '—'}</span><b>${fmt(it.amount)}</b></div>`).join('')}
+          </div>` : ''}
           ${tx.photo ? `<img class="txn-photo-thumb" src="${tx.photo}" onclick="openPV('${tx.photo}', ${tx.amount}, '${esc(tx.desc || '')}', '${tx.date}')"/>` : ''}
           <div class="txn-actions">
             ${tx.type === 'sale' ? `<button class="txn-action-btn bill" onclick="showBill('${tx.id}')">🧾 ${t('billBtn')}</button>` : ''}
-            <button class="txn-action-btn edit" onclick="openEditModal('${tx.id}')">✏️ ${t('editEntry')}</button>
+            ${!isMulti ? `<button class="txn-action-btn edit" onclick="openEditModal('${tx.id}')">✏️ ${t('editEntry')}</button>` : ''}
             <button class="txn-action-btn delete" onclick="startDeleteTxn('${tx.id}')">🗑 ${lang === 'hi' ? 'हटाएँ' : 'Delete'}</button>
           </div>
-        </div>`).join('')
+        </div>`;
+        }).join('')
     }
   `;
 }

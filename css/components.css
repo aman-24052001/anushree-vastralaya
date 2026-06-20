@@ -1286,3 +1286,62 @@
 .install-banner-icon { font-size: 18px; flex-shrink: 0; }
 .install-banner-text { flex: 1; font-size: 0.75rem; font-weight: 600; color: var(--brand); line-height: 1.4; }
 .install-banner-arrow { font-size: 1.125rem; color: var(--brand); flex-shrink: 0; }
+
+/* ── MULTI-ITEM SALE ROWS ─────────────────────────────────────────────────── */
+.sale-item-row {
+  background: var(--surface2);
+  border: var(--card-border-w) solid var(--card-border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.sale-item-row-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.sale-item-num { font-size: 0.6875rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.4px; }
+.sale-item-remove {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--danger-bg);
+  color: var(--danger);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.add-item-btn {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1.5px dashed var(--brand);
+  border-radius: var(--radius-md);
+  background: var(--brand-light);
+  color: var(--brand);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.sale-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px;
+  margin-bottom: 16px;
+  border-top: 1.5px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
+}
+.sale-total-row span:first-child { font-size: 0.8125rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.3px; }
+.sale-total-amt { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: var(--brand); }
+
+/* ── ITEMIZED BREAKDOWN (transaction list, expanded) ─────────────────────── */
+.txn-items-expand {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--brand);
+  margin-top: 4px;
+  cursor: pointer;
+}
+.txn-items-detail { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+.txn-item-detail-row { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text2); padding: 2px 0; }
+.txn-item-detail-row b { color: var(--text); font-weight: 700; }

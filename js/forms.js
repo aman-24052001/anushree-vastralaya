@@ -1,6 +1,6 @@
 /* js/forms.js — Sale form, Payment form, dropdown logic */
 
-let salePhotoData  = null;
+let saleItemsState = [{ desc: '', amount: '', photo: null }];
 let editPhotoData  = null;
 let payMethod       = 'cash';
 
@@ -47,33 +47,86 @@ function pickSaleCust(id, name) {
   document.getElementById('sale-drop').classList.remove('open');
 }
 
-function handleSalePhoto(e) {
+function handleSaleItemPhoto(e, idx) {
   const file = e.target.files[0]; if (!file) return;
   compressPhoto(file, data => {
-    salePhotoData = data;
-    const prev = document.getElementById('ph-prev');
-    prev.src = data; prev.style.display = 'block';
+    saleItemsState[idx].photo = data;
+    const prev = document.getElementById('si-photo-prev-' + idx);
+    if (prev) { prev.src = data; prev.style.display = 'block'; }
   });
 }
 
+function renderSaleItemRows() {
+  document.getElementById('sale-items-list').innerHTML = saleItemsState.map((item, i) => `
+    <div class="sale-item-row">
+      <div class="sale-item-row-head">
+        <span class="sale-item-num">${t('itemNum')} ${i + 1}</span>
+        ${saleItemsState.length > 1 ? `<button class="sale-item-remove" onclick="removeSaleItemRow(${i})">✕</button>` : ''}
+      </div>
+      <div class="f-group">
+        <input class="f-input" id="si-desc-${i}" type="text" placeholder="${t('itemDescPH')}"
+          value="${esc(item.desc)}" oninput="saleItemsState[${i}].desc = this.value"/>
+      </div>
+      <div class="f-group">
+        <input class="f-input amount" id="si-amt-${i}" type="number" inputmode="decimal" placeholder="${t('itemAmtPH')}"
+          value="${item.amount || ''}" oninput="saleItemsState[${i}].amount = this.value; updateSaleTotal()"/>
+      </div>
+      <input type="file" id="si-photo-file-${i}" accept="image/*" capture="environment"
+        style="display:none" onchange="handleSaleItemPhoto(event, ${i})"/>
+      <button class="photo-upload-btn" onclick="document.getElementById('si-photo-file-${i}').click()">
+        ${t('takePhoto')}
+      </button>
+      <img class="photo-preview-img" id="si-photo-prev-${i}" src="${item.photo || ''}" style="${item.photo ? '' : 'display:none'}"/>
+    </div>`).join('');
+}
+
+function addSaleItemRow() {
+  saleItemsState.push({ desc: '', amount: '', photo: null });
+  renderSaleItemRows();
+}
+function removeSaleItemRow(idx) {
+  if (saleItemsState.length <= 1) return;
+  saleItemsState.splice(idx, 1);
+  renderSaleItemRows();
+  updateSaleTotal();
+}
+function updateSaleTotal() {
+  const total = saleItemsState.reduce((s, it) => s + (parseFloat(it.amount) || 0), 0);
+  document.getElementById('sale-total-amt').textContent = fmt(total);
+}
+
 function resetSaleForm() {
-  ['sc-input', 's-amt', 's-desc'].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('sc-input').value = '';
   document.getElementById('sc-id').value = '';
-  document.getElementById('ph-prev').style.display = 'none';
-  document.getElementById('ph-file').value = '';
   document.getElementById('sale-drop').classList.remove('open');
-  salePhotoData = null;
+  saleItemsState = [{ desc: '', amount: '', photo: null }];
+  renderSaleItemRows();
+  updateSaleTotal();
   document.getElementById('sale-recent').innerHTML = recentTrayHTML('pickSaleCust');
-  wireLivePreview('s-amt', 's-amt-preview');
 }
 
 async function saveSale() {
   const custId = document.getElementById('sc-id').value;
-  const amt    = parseFloat(document.getElementById('s-amt').value);
-  const desc   = document.getElementById('s-desc').value.trim();
-  if (!custId || !amt || amt <= 0) { toast(t('t_fillSale')); return; }
+  if (!custId) { toast(t('t_fillSale')); return; }
 
-  const tx = { id: uid(), customerId: custId, type: 'sale', amount: amt, desc, photo: salePhotoData || null, date: new Date().toISOString() };
+  const items = saleItemsState
+    .map(it => ({ desc: (it.desc || '').trim(), amount: parseFloat(it.amount), photo: it.photo || null }))
+    .filter(it => it.amount > 0); // silently drops any extra rows left empty
+
+  if (!items.length) { toast(t('t_fillSale')); return; }
+
+  const total = items.reduce((s, it) => s + it.amount, 0);
+  const desc  = items.length === 1
+    ? items[0].desc
+    : items.length === 2
+      ? items.map(it => it.desc).filter(Boolean).join(', ')
+      : `${items[0].desc || t('itemNum') + ' 1'} +${items.length - 1} ${t('moreItems')}`;
+
+  const tx = {
+    id: uid(), customerId: custId, type: 'sale',
+    items, amount: total, desc, photo: items[0].photo || null,
+    date: new Date().toISOString(),
+  };
   await dbPut('transactions', tx);
   transactions.push(tx);
   toast(t('t_sale'));

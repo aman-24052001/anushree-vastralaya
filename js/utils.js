@@ -195,7 +195,13 @@ function smsUrl(phone, name, balance) {
   return `sms:${phone.replace(/\D/g, '')}?body=${encodeURIComponent(msg)}`;
 }
 
-// Pie chart SVG helper
+// Normalizes a sale transaction to its item list — old single-item sales (no
+// `items` array) are treated as one implicit item, so every reader of "what
+// did this sale contain" can use one code path regardless of when it was created.
+function saleItems(tx) {
+  if (Array.isArray(tx.items) && tx.items.length) return tx.items;
+  return [{ desc: tx.desc || '', amount: tx.amount, photo: tx.photo || null }];
+}
 function pieSliceSVG(cx, cy, r, startDeg, endDeg, color) {
   if (endDeg - startDeg >= 360)
     return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}"/>`;
