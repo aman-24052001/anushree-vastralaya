@@ -28,13 +28,13 @@
   object-fit: cover;
 }
 .topbar-name {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 800;
   color: var(--header-text);
   letter-spacing: -0.3px;
 }
 .topbar-tagline {
-  font-size: 10px;
+  font-size: 0.625rem;
   color: rgba(255,255,255,0.7);
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -45,7 +45,7 @@
   border: 1.5px solid rgba(255,255,255,0.35);
   padding: 5px 12px;
   border-radius: var(--radius-full);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   backdrop-filter: blur(4px);
@@ -76,7 +76,7 @@
   gap: 3px;
   background: none;
   color: var(--text3);
-  font-size: 9px;
+  font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.3px;
   text-transform: uppercase;
@@ -95,7 +95,7 @@
   border-radius: 0 0 3px 3px;
 }
 .nav-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1;
 }
 /* Special center Add button */
@@ -182,13 +182,13 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 18px;
+  font-size: 1.125rem;
   flex-shrink: 0;
   border: none;
   cursor: pointer;
 }
 .ov-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 800;
   color: var(--header-text);
   flex: 1;
@@ -202,7 +202,7 @@
   border: 1.5px solid rgba(255,255,255,0.4);
   padding: 7px 14px;
   border-radius: var(--radius-full);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -242,7 +242,7 @@
   margin: 10px auto 18px;
 }
 .modal-title {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 800;
   color: var(--text);
   margin-bottom: 18px;
@@ -258,7 +258,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text2);
   cursor: pointer;
   border: none;
@@ -284,14 +284,14 @@
   text-align: center;
   display: none;
 }
-.pv-amount { color: #fff; font-size: 20px; font-weight: 800; font-family: var(--font-mono); }
-.pv-desc { color: rgba(255,255,255,0.85); font-size: 13px; margin-top: 4px; }
-.pv-date { color: rgba(255,255,255,0.55); font-size: 11px; margin-top: 4px; }
+.pv-amount { color: #fff; font-size: 1.25rem; font-weight: 800; font-family: var(--font-mono); }
+.pv-desc { color: rgba(255,255,255,0.85); font-size: 0.8125rem; margin-top: 4px; }
+.pv-date { color: rgba(255,255,255,0.55); font-size: 0.6875rem; margin-top: 4px; }
 .pv-close {
   position: absolute;
   top: 14px; right: 14px;
   color: white;
-  font-size: 20px;
+  font-size: 1.25rem;
   background: rgba(255,255,255,0.15);
   width: 36px; height: 36px;
   border-radius: 50%;
@@ -312,7 +312,7 @@
   color: white;
   padding: 10px 18px;
   border-radius: var(--radius-full);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   z-index: 999;
   opacity: 0;
