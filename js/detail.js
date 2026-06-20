@@ -6,6 +6,7 @@ let editCustMode  = false;
 let delCustConf   = false;
 let deletingTxnId = null;
 let qpMethod      = 'cash';
+let galleryExpanded = false;
 
 function openDetail(id) {
   curCustId    = id;
@@ -14,6 +15,7 @@ function openDetail(id) {
   deletingTxnId = null;
   txnFilter    = 'all';
   qpMethod     = 'cash';
+  galleryExpanded = false;
 
   const c = customers.find(x => x.id === id); if (!c) return;
   document.getElementById('ov-name').textContent = c.name;
@@ -52,6 +54,11 @@ function setQpMethod(m) {
   renderDetail();
   const inp = document.getElementById('qp-input');
   if (inp) inp.value = keepAmt;
+}
+
+function expandGallery() {
+  galleryExpanded = true;
+  renderDetail();
 }
 
 function collectFull(amount) {
@@ -154,7 +161,7 @@ function renderDetail() {
 
   const ag    = agingText(id);
   const agCls = agingClass(id);
-  const photos = allTxns.filter(x => x.photo).map(x => x.photo);
+  const photoTxns = allTxns.filter(x => x.photo);
 
   document.getElementById('ov-body').innerHTML = `
 
@@ -185,10 +192,16 @@ function renderDetail() {
     </div>
 
     <!-- PHOTO GALLERY -->
-    ${photos.length > 0 ? `
+    ${photoTxns.length > 0 ? `
     <div class="sec-head" style="margin-top:0">${t('photosLbl')}</div>
     <div class="gallery-grid">
-      ${photos.map(p => `<img class="gallery-thumb" src="${p}" onclick="openPV('${p}')"/>`).join('')}
+      ${photoTxns.slice(0, galleryExpanded ? photoTxns.length : 3).map(tx => `
+        <img class="gallery-thumb" src="${tx.photo}"
+          onclick="openPV('${tx.photo}', ${tx.amount}, '${esc(tx.desc || '')}', '${tx.date}')"/>
+      `).join('')}
+      ${!galleryExpanded && photoTxns.length > 3 ? `
+        <div class="gallery-more-tile" onclick="expandGallery()">+${photoTxns.length - 3}</div>
+      ` : ''}
     </div>` : ''}
 
     <!-- QUICK PAY -->
@@ -281,7 +294,7 @@ function renderDetail() {
             </div>
             <div class="txn-amount ${tx.type}">${tx.type === 'sale' ? '+' : '-'}${fmt(tx.amount)}</div>
           </div>
-          ${tx.photo ? `<img class="txn-photo-thumb" src="${tx.photo}" onclick="openPV('${tx.photo}')"/>` : ''}
+          ${tx.photo ? `<img class="txn-photo-thumb" src="${tx.photo}" onclick="openPV('${tx.photo}', ${tx.amount}, '${esc(tx.desc || '')}', '${tx.date}')"/>` : ''}
           <div class="txn-actions">
             <button class="txn-action-btn edit" onclick="openEditModal('${tx.id}')">✏️ ${t('editEntry')}</button>
             <button class="txn-action-btn delete" onclick="startDeleteTxn('${tx.id}')">🗑 ${lang === 'hi' ? 'हटाएँ' : 'Delete'}</button>

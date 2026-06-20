@@ -187,7 +187,7 @@ function renderHome() {
               </div>
               <div class="txn-amount sale">${fmt(tx.amount)}</div>
             </div>
-            ${tx.photo ? `<img class="txn-photo-thumb" src="${tx.photo}" onclick="event.stopPropagation();openPV('${tx.photo}')"/>` : ''}
+            ${tx.photo ? `<img class="txn-photo-thumb" src="${tx.photo}" onclick="event.stopPropagation();openPV('${tx.photo}', ${tx.amount}, '${esc(tx.desc || '')}', '${tx.date}')"/>` : ''}
           </div>`;
         }).join('')}
       ` : ''}

@@ -939,16 +939,32 @@
 /* ── PHOTO GALLERY GRID (customer detail) ────────────────────────────────────── */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* minmax(0,..) stops a track from growing to an image's natural size */
   gap: 6px;
   margin-bottom: 14px;
 }
 .gallery-thumb {
+  width: 100%;        /* without this, an <img> grid item keeps its natural pixel width instead of the column's */
+  display: block;
   aspect-ratio: 1;
   border-radius: var(--radius-sm);
   object-fit: cover;
   cursor: pointer;
   border: var(--card-border-w) solid var(--card-border-color);
+}
+.gallery-more-tile {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  border: var(--card-border-w) solid var(--card-border-color);
+  background: var(--surface2);
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 /* ── LIVE AMOUNT PREVIEW ─────────────────────────────────────────────────────── */

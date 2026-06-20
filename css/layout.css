@@ -276,6 +276,17 @@
 }
 .pv.open { display: flex; }
 .pv img { max-width: 96%; max-height: 88vh; border-radius: 12px; }
+.pv-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0));
+  padding: 30px 20px 22px;
+  text-align: center;
+  display: none;
+}
+.pv-amount { color: #fff; font-size: 20px; font-weight: 800; font-family: var(--font-mono); }
+.pv-desc { color: rgba(255,255,255,0.85); font-size: 13px; margin-top: 4px; }
+.pv-date { color: rgba(255,255,255,0.55); font-size: 11px; margin-top: 4px; }
 .pv-close {
   position: absolute;
   top: 14px; right: 14px;

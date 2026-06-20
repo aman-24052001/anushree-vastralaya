@@ -156,13 +156,26 @@ function compressPhoto(file, callback) {
 }
 
 // Photo viewer
-function openPV(src) {
+function openPV(src, amount, desc, dateIso) {
   document.getElementById('pv-img').src = src;
+  const cap = document.getElementById('pv-caption');
+  if (amount !== undefined && amount !== null && !isNaN(amount)) {
+    const d = dateIso ? new Date(dateIso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+    cap.innerHTML = `
+      <div class="pv-amount">${fmt(amount)}</div>
+      ${desc ? `<div class="pv-desc">${desc}</div>` : ''}
+      <div class="pv-date">${d}</div>`;
+    cap.style.display = 'block';
+  } else {
+    cap.style.display = 'none';
+    cap.innerHTML = '';
+  }
   document.getElementById('pv').classList.add('open');
 }
 function closePV() {
   document.getElementById('pv').classList.remove('open');
   document.getElementById('pv-img').src = '';
+  document.getElementById('pv-caption').innerHTML = '';
 }
 
 // WhatsApp deep link
