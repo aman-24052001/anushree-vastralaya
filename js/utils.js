@@ -173,6 +173,15 @@ function waUrl(phone, name, balance) {
   return `https://wa.me/91${phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
 }
 
+// SMS fallback — for when the number isn't on WhatsApp (no way to detect that in advance,
+// so this just gives a second path that doesn't depend on WhatsApp registration at all)
+function smsUrl(phone, name, balance) {
+  const shopName = lang === 'hi' ? 'अनुश्री वस्त्रालय' : 'Anushree Vastralaya';
+  const amt = Number(balance || 0).toLocaleString('en-IN');
+  const msg = L[lang].waMsg(name, amt, shopName);
+  return `sms:${phone.replace(/\D/g, '')}?body=${encodeURIComponent(msg)}`;
+}
+
 // Pie chart SVG helper
 function pieSliceSVG(cx, cy, r, startDeg, endDeg, color) {
   if (endDeg - startDeg >= 360)

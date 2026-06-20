@@ -71,6 +71,7 @@ const L = {
     backupReminder: 'सलाह: काफी समय से बैकअप नहीं लिया — डेटा सुरक्षित रखने के लिए अभी ले लें',
     autoBackupSaved: 'ऑटो-बैकअप डाउनलोड फ़ोल्डर में सेव हुआ',
     importContacts: 'फ़ोन से चुनें', contactsNotSupported: 'यह ब्राउज़र इसका समर्थन नहीं करता — नाम-फोन खुद लिखें',
+    smsBtn: 'SMS भेजें', waFallbackHint: 'अगर नंबर WhatsApp पर नहीं है, तो ऊपर SMS भेजें',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -140,6 +141,7 @@ const L = {
     backupReminder: "Tip: It's been a while since your last backup — back up now to keep your data safe",
     autoBackupSaved: 'Auto-backup saved to Downloads',
     importContacts: 'Pick from Contacts', contactsNotSupported: "Not supported in this browser — type name/phone manually",
+    smsBtn: 'Send SMS', waFallbackHint: "If that number isn't on WhatsApp, send an SMS instead",
   }
 };
 

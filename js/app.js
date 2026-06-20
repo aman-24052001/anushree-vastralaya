@@ -45,4 +45,13 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   });
+  // sw.js calls skipWaiting()+clients.claim() on every deploy, so a new version takes
+  // control automatically — but the already-loaded page only reflects it after a reload.
+  // Do that reload automatically, once, instead of relying on a manual close-and-reopen.
+  let swRefreshed = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (swRefreshed) return;
+    swRefreshed = true;
+    window.location.reload();
+  });
 }
