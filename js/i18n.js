@@ -77,6 +77,7 @@ const L = {
     billBtn: 'बिल', billTitle: 'बिल', billCustomer: 'ग्राहक:', billDate: 'तारीख:', billItem: 'सामान:',
     billAmount: 'राशि:', billThanks: 'हमारे यहाँ खरीदारी के लिए धन्यवाद!', billShareBtn: '📤 शेयर करें',
     billCopied: 'बिल कॉपी हो गया', billCopyFailed: 'शेयर नहीं हो पाया',
+    billPdfSaved: 'बिल PDF डाउनलोड फ़ोल्डर में सेव हुआ',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -152,6 +153,7 @@ const L = {
     billBtn: 'Bill', billTitle: 'Bill', billCustomer: 'Customer:', billDate: 'Date:', billItem: 'Item:',
     billAmount: 'Amount:', billThanks: 'Thank you for shopping with us!', billShareBtn: '📤 Share',
     billCopied: 'Bill copied', billCopyFailed: 'Could not share',
+    billPdfSaved: 'Bill PDF saved to Downloads',
   }
 };
 
