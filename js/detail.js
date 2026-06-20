@@ -5,6 +5,7 @@ let txnFilter     = 'all';
 let editCustMode  = false;
 let delCustConf   = false;
 let deletingTxnId = null;
+let qpMethod      = 'cash';
 
 function openDetail(id) {
   curCustId    = id;
@@ -12,6 +13,7 @@ function openDetail(id) {
   delCustConf  = false;
   deletingTxnId = null;
   txnFilter    = 'all';
+  qpMethod     = 'cash';
 
   const c = customers.find(x => x.id === id); if (!c) return;
   document.getElementById('ov-name').textContent = c.name;
@@ -35,12 +37,21 @@ function closeOverlay() {
 async function quickPay() {
   const amt = parseFloat(document.getElementById('qp-input').value);
   if (!amt || amt <= 0) return;
-  const tx = { id: uid(), customerId: curCustId, type: 'payment', amount: amt, desc: '', photo: null, date: new Date().toISOString() };
+  const tx = { id: uid(), customerId: curCustId, type: 'payment', amount: amt, desc: '', photo: null, method: qpMethod, date: new Date().toISOString() };
   await dbPut('transactions', tx);
   transactions.push(tx);
   document.getElementById('qp-input').value = '';
+  qpMethod = 'cash';
   toast(t('t_pay'));
   renderDetail();
+}
+
+function setQpMethod(m) {
+  const keepAmt = document.getElementById('qp-input') ? document.getElementById('qp-input').value : '';
+  qpMethod = m;
+  renderDetail();
+  const inp = document.getElementById('qp-input');
+  if (inp) inp.value = keepAmt;
 }
 
 function collectFull(amount) {
@@ -182,6 +193,19 @@ function renderDetail() {
 
     <!-- QUICK PAY -->
     ${!clear ? `
+    <div class="method-toggle" style="margin-bottom:8px">
+      <div class="method-opt ${qpMethod === 'cash' ? 'active' : ''}" onclick="setQpMethod('cash')">
+        <span>💵</span> <span>${t('methodCash')}</span>
+      </div>
+      <div class="method-opt ${qpMethod === 'upi' ? 'active' : ''}" onclick="setQpMethod('upi')">
+        <span>📱</span> <span>${t('methodUpi')}</span>
+      </div>
+    </div>
+    ${qpMethod === 'upi' ? `
+    <div class="qr-card">
+      <img src="assets/upi-qr.png" alt="UPI QR"/>
+      <div class="qr-hint">${t('qrHint')}</div>
+    </div>` : ''}
     <div class="qp-bar">
       <input class="qp-input" id="qp-input" type="number" inputmode="decimal" placeholder="${t('payAmt')}"/>
       <button class="qp-full-btn" onclick="collectFull(${b})">${t('collectFull')}</button>
@@ -248,7 +272,7 @@ function renderDetail() {
           <div style="display:flex;align-items:center;gap:10px">
             <div class="txn-icon ${tx.type}">${tx.type === 'sale' ? '🛍️' : '💰'}</div>
             <div class="txn-info">
-              <div class="txn-label">${tx.type === 'sale' ? t('sale') : t('payment')}${tx.desc ? ' · ' + tx.desc : ''}</div>
+              <div class="txn-label">${tx.type === 'sale' ? t('sale') : t('payment')}${tx.method ? ' · ' + t(tx.method === 'upi' ? 'upiTag' : 'cashTag') : ''}${tx.desc ? ' · ' + tx.desc : ''}</div>
               <div class="txn-sub">${fmtDate(tx.date)}</div>
             </div>
             <div class="txn-amount ${tx.type}">${tx.type === 'sale' ? '+' : '-'}${fmt(tx.amount)}</div>

@@ -2,6 +2,14 @@
 
 let salePhotoData  = null;
 let editPhotoData  = null;
+let payMethod       = 'cash';
+
+function setPayMethod(m) {
+  payMethod = m;
+  document.getElementById('p-method-cash').classList.toggle('active', m === 'cash');
+  document.getElementById('p-method-upi').classList.toggle('active', m === 'upi');
+  document.getElementById('p-qr-card').style.display = m === 'upi' ? 'block' : 'none';
+}
 
 // ── GENERIC CUSTOMER DROPDOWN ────────────────────────────────────────────────
 function buildDropdown(inputId, dropId, onPickFn) {
@@ -94,6 +102,7 @@ function resetPayForm() {
   document.getElementById('pay-bal-strip').style.display = 'none';
   document.getElementById('pay-recent').innerHTML = recentTrayHTML('pickPayCust');
   wireLivePreview('p-amt', 'p-amt-preview');
+  setPayMethod('cash');
 }
 
 async function savePayment() {
@@ -102,7 +111,7 @@ async function savePayment() {
   const note   = document.getElementById('p-note').value.trim();
   if (!custId || !amt || amt <= 0) { toast(t('t_fillPay')); return; }
 
-  const tx = { id: uid(), customerId: custId, type: 'payment', amount: amt, desc: note, photo: null, date: new Date().toISOString() };
+  const tx = { id: uid(), customerId: custId, type: 'payment', amount: amt, desc: note, photo: null, method: payMethod, date: new Date().toISOString() };
   await dbPut('transactions', tx);
   transactions.push(tx);
   toast(t('t_pay'));

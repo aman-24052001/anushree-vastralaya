@@ -58,6 +58,9 @@ const L = {
     soldFor: 'की बिक्री', paidLbl2: 'का भुगतान मिला',
     appGuide: 'ऐप गाइड', appGuideSub: 'सभी फीचर फिर से देखें',
     tourNext: 'आगे', tourBack: 'पीछे', tourSkip: 'छोड़ें', tourDone: 'समाप्त',
+    payMethod: 'भुगतान का तरीका', methodCash: 'नकद', methodUpi: 'यूपीआई',
+    qrHint: 'ग्राहक को यह दिखाएँ — वह स्कैन करके भुगतान करेगा',
+    cashTag: '💵 नकद', upiTag: '📱 यूपीआई',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -114,6 +117,9 @@ const L = {
     soldFor: 'sale of', paidLbl2: 'payment received',
     appGuide: 'App Guide', appGuideSub: 'See all features again',
     tourNext: 'Next', tourBack: 'Back', tourSkip: 'Skip', tourDone: 'Done',
+    payMethod: 'Payment Method', methodCash: 'Cash', methodUpi: 'UPI',
+    qrHint: 'Show this to the customer — they scan it to pay',
+    cashTag: '💵 Cash', upiTag: '📱 UPI',
   }
 };
 
@@ -153,6 +159,10 @@ function applyStaticLabels() {
   document.getElementById('lbl-pay-note').textContent = s.payNote;
   document.getElementById('p-note').placeholder = s.payNotePH;
   document.getElementById('save-pay-btn').textContent = s.savePay;
+  document.getElementById('lbl-pay-method').textContent = s.payMethod;
+  document.getElementById('lbl-method-cash').textContent = s.methodCash;
+  document.getElementById('lbl-method-upi').textContent = s.methodUpi;
+  document.getElementById('lbl-qr-hint').textContent = s.qrHint;
   // Customer search
   document.getElementById('search').placeholder = s.searchPH;
   document.getElementById('nc-name').placeholder = s.custName;

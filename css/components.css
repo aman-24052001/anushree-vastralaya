@@ -1097,3 +1097,54 @@
   box-shadow: var(--shadow-md);
 }
 .tour-next-btn:active { transform: translate(1px, 1px); }
+
+/* ── PAYMENT METHOD TOGGLE (Cash / UPI) ───────────────────────────────────── */
+.method-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.method-opt {
+  flex: 1;
+  padding: 11px 8px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface2);
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.method-opt.active {
+  background: var(--brand);
+  color: var(--header-text);
+  border-color: var(--brand);
+}
+
+/* ── UPI QR CARD ───────────────────────────────────────────────────────────── */
+.qr-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  margin-bottom: 14px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: var(--card-border-w) solid var(--card-border-color);
+}
+.qr-card img {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto 10px;
+  border-radius: var(--radius-sm);
+}
+.qr-hint {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+}

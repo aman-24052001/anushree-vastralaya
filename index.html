@@ -134,6 +134,23 @@
     <div class="amt-preview" id="p-amt-preview"></div>
 
     <div class="f-group">
+      <label class="f-label" id="lbl-pay-method">भुगतान का तरीका</label>
+      <div class="method-toggle">
+        <div class="method-opt active" id="p-method-cash" onclick="setPayMethod('cash')">
+          <span>💵</span> <span id="lbl-method-cash">नकद</span>
+        </div>
+        <div class="method-opt" id="p-method-upi" onclick="setPayMethod('upi')">
+          <span>📱</span> <span id="lbl-method-upi">यूपीआई</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-card" id="p-qr-card" style="display:none">
+      <img src="assets/upi-qr.png" alt="UPI QR"/>
+      <div class="qr-hint" id="lbl-qr-hint">ग्राहक को यह दिखाएँ — वह स्कैन करके भुगतान करेगा</div>
+    </div>
+
+    <div class="f-group">
       <label class="f-label" id="lbl-pay-note">नोट</label>
       <input class="f-input" id="p-note" type="text" placeholder="जैसे: कैश मिला"/>
     </div>
