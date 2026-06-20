@@ -64,6 +64,7 @@ function renderHome() {
 
     <div class="page-body">
 
+      ${installBannerHTML()}
       ${backupReminderHTML()}
 
       <!-- MINI STATS -->
@@ -194,4 +195,16 @@ function renderHome() {
 
     </div><!-- end page-body -->
   `;
+}
+
+// "Add to Home Screen" nudge — only appears once Chrome has actually offered the
+// install event, and never if it's already running as the installed app
+function installBannerHTML() {
+  if (!deferredInstallEvent || isAppInstalled()) return '';
+  return `
+    <div class="install-banner" onclick="installApp()">
+      <span class="install-banner-icon">📲</span>
+      <span class="install-banner-text">${t('installPrompt')}</span>
+      <span class="install-banner-arrow">›</span>
+    </div>`;
 }

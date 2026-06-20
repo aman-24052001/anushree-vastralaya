@@ -72,6 +72,7 @@ const L = {
     autoBackupSaved: 'ऑटो-बैकअप डाउनलोड फ़ोल्डर में सेव हुआ',
     importContacts: 'फ़ोन से चुनें', contactsNotSupported: 'यह ब्राउज़र इसका समर्थन नहीं करता — नाम-फोन खुद लिखें',
     smsBtn: 'SMS भेजें', waFallbackHint: 'अगर नंबर WhatsApp पर नहीं है, तो ऊपर SMS भेजें',
+    installPrompt: 'इस ऐप को होम स्क्रीन पर जोड़ें — आइकन से सीधे खोलें',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -142,6 +143,7 @@ const L = {
     autoBackupSaved: 'Auto-backup saved to Downloads',
     importContacts: 'Pick from Contacts', contactsNotSupported: "Not supported in this browser — type name/phone manually",
     smsBtn: 'Send SMS', waFallbackHint: "If that number isn't on WhatsApp, send an SMS instead",
+    installPrompt: 'Add this app to your Home Screen — open it directly from an icon',
   }
 };
 

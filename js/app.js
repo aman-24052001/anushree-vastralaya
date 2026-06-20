@@ -41,6 +41,34 @@ initDB()
       </div>`;
   });
 
+// "Add to Home Screen" — Android Chrome lets a site capture this event and
+// trigger the native install dialog from our own button instead of the browser menu.
+// Not supported on iOS Safari at all (no programmatic install API there).
+let deferredInstallEvent = null;
+
+function isAppInstalled() {
+  return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+}
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallEvent = e;
+  if (!isAppInstalled() && typeof renderHome === 'function') renderHome();
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallEvent = null;
+  if (typeof renderHome === 'function') renderHome();
+});
+
+async function installApp() {
+  if (!deferredInstallEvent) return;
+  deferredInstallEvent.prompt();
+  await deferredInstallEvent.userChoice;
+  deferredInstallEvent = null; // the captured event can only be used once
+  if (typeof renderHome === 'function') renderHome();
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
