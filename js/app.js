@@ -27,6 +27,7 @@ initDB()
     applyStaticLabels();
     renderHome();
     checkFirstRun();
+    autoBackupCheck();
   })
   .catch(err => {
     document.body.innerHTML = `

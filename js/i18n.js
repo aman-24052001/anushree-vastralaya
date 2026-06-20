@@ -69,6 +69,7 @@ const L = {
     backupRestored: 'बैकअप वापस आ गया',
     backupInvalid: 'यह सही बैकअप फ़ाइल नहीं है',
     backupReminder: 'सलाह: काफी समय से बैकअप नहीं लिया — डेटा सुरक्षित रखने के लिए अभी ले लें',
+    autoBackupSaved: 'ऑटो-बैकअप डाउनलोड फ़ोल्डर में सेव हुआ',
   },
   en: {
     appName: 'Anushree Vastralaya', appSub: 'Sarees · Textiles · Traditions',
@@ -136,6 +137,7 @@ const L = {
     backupRestored: 'Backup restored',
     backupInvalid: 'That is not a valid backup file',
     backupReminder: "Tip: It's been a while since your last backup — back up now to keep your data safe",
+    autoBackupSaved: 'Auto-backup saved to Downloads',
   }
 };
 
