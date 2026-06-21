@@ -1,5 +1,5 @@
 /* sw.js — app-shell cache so the ledger opens even with zero signal */
-const CACHE = 'av-shell-v17';
+const CACHE = 'av-shell-v18';
 const ASSETS = [
   './',
   './index.html',
@@ -24,6 +24,7 @@ const ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './assets/upi-qr.png',
+  './assets/watermark-peacock.png',
 ];
 
 self.addEventListener('install', e => {

@@ -75,7 +75,7 @@ async function buildBillPDF() {
 
   // Faint logo watermark, drawn first so all text sits above it
   try {
-    const logo = await loadImageEl('icons/logo.png');
+    const logo = await loadImageEl('assets/watermark-peacock.png');
     const wm = 95;
     doc.saveGraphicsState();
     doc.setGState(new doc.GState({ opacity: 0.09 }));
