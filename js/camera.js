@@ -28,7 +28,14 @@ function startCamStream() {
     camFallbackToGallery();
     return;
   }
-  navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacing }, audio: false })
+  navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: camFacing,
+        width:  { ideal: 4096 },
+        height: { ideal: 4096 }
+      },
+      audio: false
+    })
     .then(stream => {
       camStream = stream;
       const v = document.getElementById('cam-video');
