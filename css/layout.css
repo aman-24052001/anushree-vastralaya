@@ -302,6 +302,86 @@
   border: none;
 }
 
+/* ── IN-APP CAMERA ────────────────────────────────────────────────────────── */
+.cam-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 800;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cam-overlay.open { display: flex; }
+.cam-overlay video,
+.cam-overlay .cam-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+#cam-video { display: block; }
+.cam-close, .cam-switch {
+  position: absolute;
+  top: 18px;
+  color: white;
+  font-size: 1.1rem;
+  background: rgba(0,0,0,0.45);
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+.cam-close { right: 16px; }
+.cam-switch { left: 16px; }
+.cam-bar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 18px 24px calc(28px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+  z-index: 2;
+}
+.cam-bar-preview { display: none; justify-content: center; gap: 56px; }
+.cam-bar-spacer, .cam-gallery-link {
+  width: 64px;
+  font-size: 0.625rem;
+  color: rgba(255,255,255,0.85);
+  background: none;
+  border: none;
+  text-align: center;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.cam-shutter {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid rgba(255,255,255,0.5);
+  cursor: pointer;
+}
+.cam-shutter:active { background: #e5e7eb; }
+.cam-retake-btn, .cam-confirm-btn {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cam-retake-btn  { background: rgba(255,255,255,0.18); color: #fff; }
+.cam-confirm-btn { background: var(--success, #0E9F6E); color: #fff; }
+
 /* ── TOAST ───────────────────────────────────────────────────────────────────── */
 .toast {
   position: fixed;

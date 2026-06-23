@@ -56,6 +56,14 @@ function handleSaleItemPhoto(e, idx) {
   });
 }
 
+function openSaleItemCamera(idx) {
+  openCamera(dataUrl => {
+    saleItemsState[idx].photo = dataUrl;
+    const prev = document.getElementById('si-photo-prev-' + idx);
+    if (prev) { prev.src = dataUrl; prev.style.display = 'block'; }
+  }, 'si-photo-file-' + idx);
+}
+
 function renderSaleItemRows() {
   document.getElementById('sale-items-list').innerHTML = saleItemsState.map((item, i) => `
     <div class="sale-item-row">
@@ -73,7 +81,7 @@ function renderSaleItemRows() {
       </div>
       <input type="file" id="si-photo-file-${i}" accept="image/*"
         style="display:none" onchange="handleSaleItemPhoto(event, ${i})"/>
-      <button class="photo-upload-btn" onclick="document.getElementById('si-photo-file-${i}').click()">
+      <button class="photo-upload-btn" onclick="openSaleItemCamera(${i})">
         ${t('takePhoto')}
       </button>
       <img class="photo-preview-img" id="si-photo-prev-${i}" src="${item.photo || ''}" style="${item.photo ? '' : 'display:none'}"/>
@@ -195,6 +203,13 @@ function handleEditPhoto(e) {
     const prev = document.getElementById('e-ph-prev');
     prev.src = data; prev.style.display = 'block';
   });
+}
+function openEditCamera() {
+  openCamera(dataUrl => {
+    editPhotoData = dataUrl;
+    const prev = document.getElementById('e-ph-prev');
+    prev.src = dataUrl; prev.style.display = 'block';
+  }, 'e-ph-file');
 }
 async function saveEdit() {
   const id  = document.getElementById('edit-txn-id').value;

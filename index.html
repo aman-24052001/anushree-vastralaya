@@ -210,14 +210,32 @@
     </div>
     <div class="f-group">
       <label class="f-label">फ़ोटो बदलें</label>
-      <input type="file" id="e-ph-file" accept="image/*" capture="environment"
+      <input type="file" id="e-ph-file" accept="image/*"
         style="display:none" onchange="handleEditPhoto(event)"/>
-      <button class="photo-upload-btn" onclick="document.getElementById('e-ph-file').click()">
+      <button class="photo-upload-btn" onclick="openEditCamera()">
         📷  फ़ोटो बदलें
       </button>
       <img class="photo-preview-img" id="e-ph-prev"/>
     </div>
     <button class="submit-btn" onclick="saveEdit()">✓ सुधार सेव करें</button>
+  </div>
+</div>
+
+<!-- ── IN-APP CAMERA (replaces unreliable native camera intent) ─────────── -->
+<div class="cam-overlay" id="cam-overlay">
+  <video id="cam-video" autoplay playsinline muted></video>
+  <canvas id="cam-canvas" style="display:none"></canvas>
+  <img id="cam-preview-img" class="cam-preview-img" alt=""/>
+  <button class="cam-close" id="cam-close-btn" onclick="closeCamera()">✕</button>
+  <button class="cam-switch" id="cam-switch-btn" onclick="switchCamera()">🔄</button>
+  <div class="cam-bar cam-bar-live" id="cam-bar-live">
+    <button class="cam-gallery-link" onclick="useCameraGalleryFallback()" id="cam-gallery-link"></button>
+    <button class="cam-shutter" id="cam-shutter-btn" onclick="camShutter()" aria-label="Capture"></button>
+    <span class="cam-bar-spacer"></span>
+  </div>
+  <div class="cam-bar cam-bar-preview" id="cam-bar-preview">
+    <button class="cam-retake-btn" onclick="camRetake()" aria-label="Retake">✕</button>
+    <button class="cam-confirm-btn" onclick="camConfirm()" aria-label="Use photo">✓</button>
   </div>
 </div>
 
@@ -276,6 +294,7 @@
 <script src="js/db.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/utils.js"></script>
+<script src="js/camera.js"></script>
 <script src="js/theme.js"></script>
 <script src="js/tour.js"></script>
 <script src="js/vendor/jspdf.umd.min.js"></script>
