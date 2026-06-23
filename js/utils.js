@@ -142,13 +142,13 @@ function compressPhoto(file, callback) {
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      const max = 800;
+      const max = 1600;
       let w = img.width, h = img.height;
       if (w > max) { h = Math.round(h * max / w); w = max; }
       if (h > max) { w = Math.round(w * max / h); h = max; }
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      callback(canvas.toDataURL('image/jpeg', 0.72));
+      callback(canvas.toDataURL('image/jpeg', 0.92));
     };
     img.src = ev.target.result;
   };
