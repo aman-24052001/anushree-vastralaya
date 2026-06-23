@@ -1133,9 +1133,9 @@
   background: var(--surface);
   display: none;
   flex-direction: column;
-  max-width: 560px;
+  max-width: var(--shell-max);
   left: 50%;
-  margin-left: -280px;
+  margin-left: calc(var(--shell-max) / -2);
 }
 .tour-overlay.open { display: flex; }
 @media (max-width: 560px) {
@@ -1345,3 +1345,27 @@
 .txn-items-detail { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
 .txn-item-detail-row { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text2); padding: 2px 0; }
 .txn-item-detail-row b { color: var(--text); font-weight: 700; }
+
+/* ── DESKTOP / LAPTOP ADAPTATION ──────────────────────────────────────────────
+   Below 860px (phones, small tablets) the app stays exactly as designed —
+   a single-column mobile card. From 860px up, --shell-max widens (tokens.css)
+   and these rules use the extra room sensibly instead of just stretching
+   single-column lists into oddly wide rows. */
+@media (min-width: 860px) {
+  /* Customer list: side-by-side cards instead of one long stretched column */
+  #cust-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+  #cust-list .cust-card { margin-bottom: 0; }
+  #cust-list .empty-state { grid-column: 1 / -1; }
+
+  /* A touch more breathing room now that the card itself is wider */
+  .page-body { padding-left: 20px; padding-right: 20px; }
+
+  /* Subtle elevation so the wider shell reads as a deliberate card on the
+     backdrop, not a stretched phone screenshot */
+  body { box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 24px 60px -20px rgba(0,0,0,0.18); }
+}

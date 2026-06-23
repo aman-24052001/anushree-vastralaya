@@ -71,7 +71,7 @@ function renderSaleItemRows() {
         <input class="f-input amount" id="si-amt-${i}" type="number" inputmode="decimal" placeholder="${t('itemAmtPH')}"
           value="${item.amount || ''}" oninput="saleItemsState[${i}].amount = this.value; updateSaleTotal()"/>
       </div>
-      <input type="file" id="si-photo-file-${i}" accept="image/*" capture="environment"
+      <input type="file" id="si-photo-file-${i}" accept="image/*"
         style="display:none" onchange="handleSaleItemPhoto(event, ${i})"/>
       <button class="photo-upload-btn" onclick="document.getElementById('si-photo-file-${i}').click()">
         ${t('takePhoto')}

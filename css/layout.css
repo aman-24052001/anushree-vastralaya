@@ -58,7 +58,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 560px;
+  max-width: var(--shell-max);
   background: var(--white);
   border-top: var(--card-border-w, 1px) solid var(--card-border-color, var(--border));
   display: flex;
@@ -151,9 +151,9 @@
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   overflow-x: hidden;
-  max-width: 560px;
+  max-width: var(--shell-max);
   left: 50%;
-  margin-left: -280px;
+  margin-left: calc(var(--shell-max) / -2);
 }
 .overlay.open { transform: translateX(0); }
 @media (max-width: 560px) {
@@ -229,7 +229,7 @@
   border-radius: 24px 24px 0 0;
   padding: 8px 20px 32px;
   width: 100%;
-  max-width: 560px;
+  max-width: var(--shell-max);
   max-height: 88vh;
   overflow-y: auto;
   border-top: var(--card-border-w) solid var(--card-border-color);
